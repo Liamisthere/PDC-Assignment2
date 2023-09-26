@@ -99,17 +99,6 @@ public class Menu extends JFrame implements ActionListener{
      
      
     }
-    
-     
-     
-   public static void main(String args[])
-   {
-       Menu cf = new Menu();
-       cf.setVisible(true);
        
-   
-   }
-
-    
     
 }

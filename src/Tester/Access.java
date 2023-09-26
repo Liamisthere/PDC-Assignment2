@@ -4,7 +4,7 @@
  */
 package Tester;
 
-import static Tester.Onlineshopping.menu;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -92,29 +92,25 @@ public class Access {
     
     
     // Gets user into program if they have existing account in the program
-     public void login() {
-         
-        //Asks for email and stores it in email string
-        System.out.println("Please enter your email:");
-        String email = scanner.next();
+     public boolean Login(String email, String password) {
 
-        //Asks for password and stores it in email password
-        System.out.println("Please enter your Password:");
-        String password = scanner.next();
-
-        //Sends email and password to inspect method to see if account exists
         boolean validate = o.inspect(email, password);
 
+        Object[] collect =  new Object[2];
+        
         //If Account exists than Select user's account and take them into the program 
         if (validate == true) {
-            Accounts current_user = o.select_accounts(email, password);
-            User_interfaces ui = new User_interfaces(o);
-            ui.user_Page(current_user);
            
-        //Otherwise prompt user that account isn't correct and send it to menu method
+            collect[2] = "Access granted";
+
+      
+        //Otherwise prompt user that account isn't correct and send it
         } else {
             System.out.println("Sorry, email or password is invalid.");
-            menu(o);
+     
+            
         }    
+        
+        return validate;
     }
 }

@@ -115,7 +115,6 @@ public void user_Page(Accounts a) {
             //If response equal H (ignore case) then end while loop and return to menu
             else if (options.equalsIgnoreCase("H")) {
                 quit = true;
-                menu(o);
             } 
             
             //Otherwise prompt user that invalid input and to try again
