@@ -1,0 +1,48 @@
+Thu Sep 28 10:45:50 NZDT 2023 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Thu Sep 28 10:45:50 NZDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018a-d89a-faaa-ffffd3214237 
+on database directory C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1\ShopAppDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a 
+Loaded from file:/C:/Users/liana/OneDrive/Documents/db-derby-10.14.2.0-lib/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.18+9-LTS-195
+user.dir=C:\Users\liana\OneDrive\Documents\db-derby-10.14.2.0-lib
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Sep 28 10:46:05 NZDT 2023:
+Shutting down instance a816c00e-018a-d89a-faaa-ffffd3214237 on database directory C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1\ShopAppDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a 
+Thu Sep 28 10:46:05 NZDT 2023 Thread[DRDAConnThread_3,5,main] (DATABASE = ShopAppDB), (DRDAID = {2}), Database 'ShopAppDB' shutdown.
+----------------------------------------------------------------
+Thu Sep 28 10:46:48 NZDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance e8afc026-018a-d89a-faaa-ffffd3214237 
+on database directory C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1\ShopDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a 
+Loaded from file:/C:/Users/liana/OneDrive/Documents/db-derby-10.14.2.0-lib/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.18+9-LTS-195
+user.dir=C:\Users\liana\OneDrive\Documents\db-derby-10.14.2.0-lib
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Sep 28 10:46:50 NZDT 2023:
+Shutting down instance e8afc026-018a-d89a-faaa-ffffd3214237 on database directory C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1\ShopDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a 
+Thu Sep 28 10:46:50 NZDT 2023 Thread[DRDAConnThread_3,5,main] (DATABASE = ShopDB), (DRDAID = {4}), Database 'ShopDB' shutdown.
+----------------------------------------------------------------
+Thu Sep 28 10:47:01 NZDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance f33d40c7-018a-d89a-faaa-ffffd3214237 
+on database directory C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1\ShopDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a 
+Loaded from file:/C:/Users/liana/OneDrive/Documents/db-derby-10.14.2.0-lib/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.18+9-LTS-195
+user.dir=C:\Users\liana\OneDrive\Documents\db-derby-10.14.2.0-lib
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1
+Database Class Loader started - derby.database.classpath=''

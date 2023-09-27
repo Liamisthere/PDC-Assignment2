@@ -20,9 +20,9 @@ public final class DBManager {
      * the server first. Meanwhile, you need to import 'derby.jar' to the
      * libraries.
      */
-    private static final String USER_NAME = "PDC"; //your DB username
-    private static final String PASSWORD = "HAMBURGER"; //your DB password
-    private static final String URL = "jdbc:derby:AccountDB; create=true";  //url of the DB host
+    private static final String USER_NAME = "pdc"; //your DB username
+    private static final String PASSWORD = "pdc"; //your DB password
+    private static final String URL = "jdbc:derby:ShopDB; create=true";  //url of the DB host
 
     Connection conn;
 
