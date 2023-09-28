@@ -13,7 +13,11 @@ public class Enrol extends JFrame implements ActionListener{
     public boolean quit;
     public JTextField namefield;
     public JTextField surnamefield;
-    public JTextField agefield;    
+    
+    
+    public JComboBox agefield;
+
+    
     public JTextField emailfield;
     public JTextField passwordfield;
 
@@ -40,7 +44,15 @@ public class Enrol extends JFrame implements ActionListener{
     quit = false; 
     namefield = new JTextField(20);
     surnamefield = new JTextField(20);
-    agefield = new JTextField(20);
+    agefield = new JComboBox();
+    
+    
+    for(int i = 1; i < 101; i++)
+    {
+        this.agefield.addItem(i);
+        
+    }
+
     emailfield = new JTextField(20);
     passwordfield = new JTextField(20);
     
@@ -141,12 +153,6 @@ public class Enrol extends JFrame implements ActionListener{
      
      }
      
-     if(e.getSource() == this.submitBtn && this.agefield.getText().isEmpty())
-     {
-         System.out.println("Age empty");
-         agewarn.setVisible(true);
-     
-     }
       
         
      if(e.getSource() == this.submitBtn && this.emailfield.getText().isEmpty())
@@ -166,9 +172,11 @@ public class Enrol extends JFrame implements ActionListener{
      
      
         
-     if(e.getSource() == this.submitBtn && this.namefield.getText().length() > 0 && this.surnamefield.getText().length() >  0&& this.agefield.getText().length() > 0&&this.emailfield.getText().length() > 0 && this.passwordfield.getText().length() > 0)
+     if(e.getSource() == this.submitBtn && this.namefield.getText().length() > 0 && this.surnamefield.getText().length() >  0&&this.emailfield.getText().length() > 0 && this.passwordfield.getText().length() > 0)
      {
          System.out.println("SUBMIT");
+         
+         Accounts ac = new Accounts(this.namefield.getText(),this.surnamefield.getText(),this.emailfield.getText(), 10 , this.passwordfield.getText());
      
      }  
       
