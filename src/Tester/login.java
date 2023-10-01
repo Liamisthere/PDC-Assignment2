@@ -137,10 +137,15 @@ public class login extends JFrame implements ActionListener{
          System.out.println(email);
          System.out.println(password);
          
+         
+         
+         
+         
+         
          User_page pg = new User_page();
          
          pg.setVisible(true);
-         
+         this.setVisible(false);
          
          
      }

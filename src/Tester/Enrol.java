@@ -15,7 +15,7 @@ public class Enrol extends JFrame implements ActionListener{
     public JTextField surnamefield;
     
     
-    public JComboBox agefield;
+    public JComboBox <Integer> agefield;
 
     
     public JTextField emailfield;
@@ -26,8 +26,14 @@ public class Enrol extends JFrame implements ActionListener{
     public JLabel surnamewarn;
     public JLabel agewarn;
     public JLabel emailwarn;
+    public JLabel emailexist;
+    
     public JLabel passwordwarn;
-
+    
+    public JLabel emailguide;
+    public JLabel passwordguide;
+    
+    public Accountstore o;
 
     
     
@@ -80,31 +86,64 @@ public class Enrol extends JFrame implements ActionListener{
      JLabel name = new JLabel("Name:");
      namewarn = new JLabel("Name field is empty!");
      namewarn.setVisible(false);
+     
      centerPanel.add(name);
+     centerPanel.add(namewarn);
      centerPanel.add(namefield);
      
      JLabel surname = new JLabel("\nSurame:");
+     
      surnamewarn = new JLabel("Surname field is empty!");
+     
+     surname.setVisible(true);
      surnamewarn.setVisible(false);
+
+     
      centerPanel.add(surname);
+     centerPanel.add(surnamewarn);
      centerPanel.add(surnamefield);
      
      JLabel age = new JLabel("Age:");
+     
+     age.setVisible(true);
      agewarn = new JLabel("Age field is empty!");
      agewarn.setVisible(false);
+     
      centerPanel.add(age);
+     centerPanel.add(agewarn);
      centerPanel.add(agefield);
      
-    JLabel email = new JLabel("Email");
+     JLabel email = new JLabel("Email:");
      emailwarn = new JLabel("Email field is empty!");
+     emailguide = new JLabel("Email must contain @ and be at least 6 characters long");
+     emailexist = new JLabel ("This email is already in use in the program, use another email");
+     
+     email.setVisible(true);
+     emailexist.setVisible(false);
      emailwarn.setVisible(false);
+     emailguide.setVisible(false);
+     
+     
      centerPanel.add(email);
+     centerPanel.add(emailexist);
+     centerPanel.add(emailguide);
+     centerPanel.add(emailwarn);
      centerPanel.add(emailfield);
      
-     JLabel password = new JLabel("Password");
+     
+     JLabel password = new JLabel("Password:");
      passwordwarn = new JLabel("Password field is empty!");
+     
+     passwordguide = new JLabel("Password must contain at least 3 numbers and 3 letters");
+     
+     
+     password.setVisible(true);
+     passwordguide.setVisible(false);
      passwordwarn.setVisible(false);
+     
      centerPanel.add(password);
+     centerPanel.add(passwordwarn);
+     centerPanel.add(passwordguide);
      centerPanel.add(passwordfield);
      
      this.add(centerPanel, BorderLayout.CENTER);
@@ -142,7 +181,7 @@ public class Enrol extends JFrame implements ActionListener{
       if(e.getSource() == this.submitBtn && this.namefield.getText().isEmpty())
      {
          System.out.println("Name empty");
-         namefield.setVisible(true);
+         namewarn.setVisible(true);
      
      }     
         
@@ -165,7 +204,7 @@ public class Enrol extends JFrame implements ActionListener{
      if(e.getSource() == this.submitBtn && this.passwordfield.getText().isEmpty())
      {
          System.out.println("Password empty");
-         passwordwarn.setVisible(false);
+         passwordwarn.setVisible(true);
      
      }    
         
@@ -176,8 +215,27 @@ public class Enrol extends JFrame implements ActionListener{
      {
          System.out.println("SUBMIT");
          
-         Accounts ac = new Accounts(this.namefield.getText(),this.surnamefield.getText(),this.emailfield.getText(), 10 , this.passwordfield.getText());
+         if(this.emailfield.getText().contains("@") && this.emailfield.getText().length() >= 6)
+         {
+          emailguide.setVisible(false); 
+         passwordguide.setVisible(false);
+         Accounts ac = new Accounts(this.namefield.getText(),this.surnamefield.getText(),this.emailfield.getText(), (int) this.agefield.getSelectedItem(), this.passwordfield.getText());
+         
+         System.out.println(ac);
+         o.addUsers(ac, o); 
+         
+         }
+         
      
+         
+         else{
+             
+            emailguide.setVisible(true);
+             System.out.println("EMAIL LIMIT");
+         }
+
+         
+
      }  
       
      
