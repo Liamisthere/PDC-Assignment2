@@ -12,7 +12,7 @@ import javax.swing.*;
 
 
 public class login extends JFrame implements ActionListener{
-    Access a;
+    Access access;
     
     public JButton submitBtn;
     public JButton exitBtn;
@@ -24,8 +24,9 @@ public class login extends JFrame implements ActionListener{
     public JTextField emailfield;    
   
     
-    public login()
+    public login(Accountstore a)
     {
+     this.access = new Access(a);
      initComponents();
      intitPanels();
      initActionListener();
@@ -137,15 +138,28 @@ public class login extends JFrame implements ActionListener{
          System.out.println(email);
          System.out.println(password);
          
+       
+         Productstore ps = new Productstore();
+         
+         User_page pg = new User_page(ps);
+         
+         boolean existed = access.Login(email, password);
+         
+         if(existed == true)
+         {
+            pg.setVisible(true);
+            this.setVisible(false);
+            System.out.println("existed");
+         
+         }
+         
+         else
+         {
          
          
+         }
          
          
-         
-         User_page pg = new User_page();
-         
-         pg.setVisible(true);
-         this.setVisible(false);
          
          
      }

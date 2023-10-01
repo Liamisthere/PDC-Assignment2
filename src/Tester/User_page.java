@@ -1,15 +1,19 @@
 package Tester;
 
 import Tester.Panel;
+import java.util.*;
+import java.io.*;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.BorderLayout;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class User_page extends JFrame implements ActionListener{
   
     
+    public DefaultTableModel tableModel;
     
     public JButton exitBtn;
     public JButton itemlistBtn;
@@ -23,17 +27,30 @@ public class User_page extends JFrame implements ActionListener{
     public JTable search_list;
     
     
+    Productstore ps;
+    
+    
     public boolean quit;
 
+    
 
 
     
     
-    public User_page()
+    public User_page(Productstore p)
     {
      initComponents();
      intitPanels();
      initActionListener();
+     this.ps = p;
+     
+     tableModel = new DefaultTableModel();
+     tableModel.addColumn("Name");
+     tableModel.addColumn("Company");
+     tableModel.addColumn("Price");
+     tableModel.addColumn("Rating");
+     tableModel.addColumn("Category");
+     item_list = new JTable(tableModel);
     }
     
     
@@ -62,6 +79,13 @@ public class User_page extends JFrame implements ActionListener{
      Panel centerPanel =  new Panel();
      
      JLabel displayLabel = new JLabel("Display inventory");
+     
+     
+  //   itemlistBtn.setVisible(false);
+     
+   
+     
+     
      JLabel addLabel = new JLabel("Add product to shopping list");
      JLabel cartLabel = new JLabel("See what's in your cart");
      JLabel rateLabel = new JLabel("Rate product");
@@ -70,6 +94,17 @@ public class User_page extends JFrame implements ActionListener{
      JLabel paynowLable = new JLabel("Pay now");
      
      
+     
+   /*  for(Product r : ps.getInventory())
+    {
+            tableModel.addRow(new Object[]{r.getName(),r.getCompany(),r.getPrice(), r.getRating(), r.getCategory()});
+    }
+     
+    item_list.setVisible(false);
+*/     
+
+  //   centerPanel.add(item_list);
+//     centerPanel.add(itemlistBtn);     
      centerPanel.add(displayLabel);
      centerPanel.add(addLabel);
      centerPanel.add(cartLabel);
@@ -101,9 +136,14 @@ public class User_page extends JFrame implements ActionListener{
    @Override
     public void actionPerformed(ActionEvent e) {
         
-        
  
       
+     if(e.getSource() == this.itemlistBtn)
+     {
+         System.out.println("EXIT");
+
+        
+     }
      
      if(e.getSource() == this.exitBtn)
      {
@@ -116,5 +156,6 @@ public class User_page extends JFrame implements ActionListener{
      
      
     }
+    
     
 }

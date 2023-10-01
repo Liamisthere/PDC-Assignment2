@@ -95,21 +95,7 @@ public class Access {
      public boolean Login(String email, String password) {
 
         boolean validate = o.inspect(email, password);
-
-        Object[] collect =  new Object[2];
-        
-        //If Account exists than Select user's account and take them into the program 
-        if (validate == true) {
-           
-            collect[2] = "Access granted";
-
-      
-        //Otherwise prompt user that account isn't correct and send it
-        } else {
-            System.out.println("Sorry, email or password is invalid.");
-     
-            
-        }    
+  
         
         return validate;
     }

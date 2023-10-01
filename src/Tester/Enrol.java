@@ -33,12 +33,13 @@ public class Enrol extends JFrame implements ActionListener{
     public JLabel emailguide;
     public JLabel passwordguide;
     
-    public Accountstore o;
+    Accountstore o;
 
     
     
-    public Enrol()
+    public Enrol(Accountstore o)
     {
+     this.o = o;
      initComponents();
      intitPanels();
      initActionListener();
@@ -94,6 +95,7 @@ public class Enrol extends JFrame implements ActionListener{
      JLabel surname = new JLabel("\nSurame:");
      
      surnamewarn = new JLabel("Surname field is empty!");
+     
      
      surname.setVisible(true);
      surnamewarn.setVisible(false);
@@ -217,12 +219,13 @@ public class Enrol extends JFrame implements ActionListener{
          
          if(this.emailfield.getText().contains("@") && this.emailfield.getText().length() >= 6)
          {
-          emailguide.setVisible(false); 
-         passwordguide.setVisible(false);
-         Accounts ac = new Accounts(this.namefield.getText(),this.surnamefield.getText(),this.emailfield.getText(), (int) this.agefield.getSelectedItem(), this.passwordfield.getText());
+            emailguide.setVisible(false); 
+            passwordguide.setVisible(false);
+            Accounts ac = new Accounts(this.namefield.getText(),this.surnamefield.getText(),this.emailfield.getText(), (int) this.agefield.getSelectedItem(), this.passwordfield.getText());
          
-         System.out.println(ac);
-         o.addUsers(ac, o); 
+            System.out.println(ac);
+            o.addUsers(ac, o); 
+            this.setVisible(false);
          
          }
          

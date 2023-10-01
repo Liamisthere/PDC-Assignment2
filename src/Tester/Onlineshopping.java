@@ -23,7 +23,9 @@ class Onlineshopping {
     //Main method of the program      
    public static void main(String args[])
    {
-       Menu cf = new Menu();
+       Accountstore Accounts = new Accountstore();
+       
+       Menu cf = new Menu(Accounts);
        cf.setVisible(true);
    }
         
