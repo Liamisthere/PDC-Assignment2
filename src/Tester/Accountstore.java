@@ -298,15 +298,62 @@ public class Accountstore implements AccountIO {
         return list;
     }
 
-}
+
 
 public boolean validpassword(String password)
 {
-    valid = false;
+    boolean valid = false;
      
+   
+  String[] passlist = password.split(password);
+  
+  String[] numbers = {"0","1", "2", "3", "4","5","6", "7", "8", "9"};
+  
+  String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+  
+  int number_count = 0;
+  int alphabet_count = 0;
+  
+  for(String p : passlist)
+  {
+      
+    for(String n :numbers)
+    {
+        if(p.equalsIgnoreCase(n))
+        {
+            number_count++;
+            System.out.println(number_count);
+        }
+    }
+  }   
+ 
+  for(String p : passlist)
+  {
+    for(String alpha :alphabet)
+    {
+        if(p.equalsIgnoreCase(alpha))
+        {
+            alphabet_count++;
+            System.out.println(alphabet_count);
+        }
+    }
+  
+  }
+  
+  
+  if(number_count >= 3 && alphabet_count >= 3)
+  {
+      valid = true;
+      
+  }
+  
+  else
+  {
+      valid = false;
+  }
+  
+  return valid;
+}
 
-   <String> ArrayList  number =  new <String> ArrayList();
-
-{"0","1", "2", "3", "4","5","6", "7", "8", "9"};
 
 }
