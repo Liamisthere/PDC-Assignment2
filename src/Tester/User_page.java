@@ -15,6 +15,7 @@ public class User_page extends JFrame implements ActionListener{
     
     public DefaultTableModel tableModel;
     
+    
     public JButton exitBtn;
     public JButton itemlistBtn;
     public JButton searchlistBtn;
@@ -95,13 +96,17 @@ public class User_page extends JFrame implements ActionListener{
      
      
      
-   /*  for(Product r : ps.getInventory())
+  /*  for(Product r : ps.getInventory())
     {
-            tableModel.addRow(new Object[]{r.getName(),r.getCompany(),r.getPrice(), r.getRating(), r.getCategory()});
+            //tableModel.addRow(new Object[]{r.getName(),r.getCompany(),r.getPrice(), r.getRating(), r.getCategory()});
+        System.out.println(r);
     }
      
-    item_list.setVisible(false);
-*/     
+    //item_list.setVisible(false);
+*/
+
+       
+       //System.out.println(ps.getInventory().size());
 
   //   centerPanel.add(item_list);
 //     centerPanel.add(itemlistBtn);     

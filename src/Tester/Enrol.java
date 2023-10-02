@@ -219,18 +219,24 @@ public class Enrol extends JFrame implements ActionListener{
          
          if(this.emailfield.getText().contains("@") && this.emailfield.getText().length() >= 6)
          {
-            emailguide.setVisible(false); 
-            passwordguide.setVisible(false);
             Accounts ac = new Accounts(this.namefield.getText(),this.surnamefield.getText(),this.emailfield.getText(), (int) this.agefield.getSelectedItem(), this.passwordfield.getText());
-         
-            System.out.println(ac);
-            o.addUsers(ac, o); 
-            this.setVisible(false);
-         
+
+             if(o.Existed(ac, o))
+             {
+                emailexist.setVisible(true);
+             }
+             
+             else
+             {
+                 emailguide.setVisible(false); 
+                 passwordguide.setVisible(false);
+                     
+                  System.out.println(ac);
+                  o.addUsers(ac, o); 
+                  this.setVisible(false);
+             }                  
          }
-         
-     
-         
+
          else{
              
             emailguide.setVisible(true);

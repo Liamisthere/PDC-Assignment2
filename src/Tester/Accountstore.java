@@ -83,24 +83,40 @@ public class Accountstore implements AccountIO {
             store_data(o);
         } //Otherwise Use for loop to go through storage
         else {
-            for (Accounts a : b.storage) {
+                b.storage.add(o);
+                store_data(o);
+
+        }
+    }
+    
+    
+    public boolean Existed(Accounts o, Accountstore b)
+    {
+        boolean exist = false;
+        
+        int count = 0;
+        for (Accounts a : b.storage) {
                 //if for loop email equals to given email then account already has the same email and add 1 
                 if (o.getEmail().equals(a.getEmail())) {
-                    //Prompts user with message saying email is in use and can't be used
-                    System.out.println("This Account has the same Email!");
-
+              
                     //add one more to count
                     count += 1;
                 }
             }
-            //If count equals to 0 then add account to storage and use store_data to store accounts
-            if (count == 0) {
-                b.storage.add(o);
-                store_data(o);
-            }
-
+        
+        //If count equals to 0 then add account to storage and use store_data to store accounts
+         if (count == 0) {
+                exist = false;
         }
-    }
+    
+         else if (count > 0) {
+             //Prompts user with message saying email is in use and can't be used
+                System.out.println("Email in already in use!");
+                exist = true;
+        }
+        
+        return exist;
+    } 
 
     //Overrides the store_data method from AccountIO
     @Override
@@ -281,5 +297,16 @@ public class Accountstore implements AccountIO {
 
         return list;
     }
+
+}
+
+public boolean validpassword(String password)
+{
+    valid = false;
+     
+
+   <String> ArrayList  number =  new <String> ArrayList();
+
+{"0","1", "2", "3", "4","5","6", "7", "8", "9"};
 
 }
