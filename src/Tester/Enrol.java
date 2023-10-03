@@ -5,10 +5,18 @@ import java.awt.Font;
 import java.awt.event.*;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
+import java.awt.Dimension;
 import javax.swing.*;
 
 public class Enrol extends JFrame implements ActionListener {
 
+
+    public JPanel Namepanel;
+    public JPanel Surnamepanel;  
+    public JPanel Agepanel;
+    public JPanel Emailpanel;
+    public JPanel Passwordpanel;
+    
     
     public JButton submitBtn;
     public JButton exitBtn;
@@ -61,7 +69,7 @@ public class Enrol extends JFrame implements ActionListener {
         submitBtn = new JButton("Submit");
         exitBtn = new JButton("Exit");
 
-        this.setSize(400, 400);
+        this.setSize(500, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
@@ -76,15 +84,32 @@ public class Enrol extends JFrame implements ActionListener {
 
         // Center Panel 
         Panel centerPanel = new Panel();
-
+        
+        JPanel Namepanel = new JPanel();
+        JPanel Surnamepanel = new JPanel();
+        JPanel Agepanel = new JPanel();
+        
+        Agepanel.setPreferredSize( new Dimension(100, 50));
+        
+        JPanel Passwordpanel = new JPanel();    
+        JPanel Emailpanel = new JPanel();
+               
+        centerPanel.add(Namepanel);
+        centerPanel.add(Surnamepanel);
+        centerPanel.add(Agepanel);
+        centerPanel.add(Emailpanel);
+        centerPanel.add(Passwordpanel);
+        
+        
         JLabel name = new JLabel("Name:");
         namewarn = new JLabel("Name field is empty!");
         namewarn.setVisible(false);
 
-        centerPanel.add(name);
-        centerPanel.add(namewarn);
-        centerPanel.add(namefield);
-
+        Namepanel.add(name);
+        
+        Namepanel.add(namefield);
+        Namepanel.add(namewarn);
+        
         JLabel surname = new JLabel("\nSurame:");
 
         surnamewarn = new JLabel("Surname field is empty!");
@@ -92,20 +117,18 @@ public class Enrol extends JFrame implements ActionListener {
         surname.setVisible(true);
         surnamewarn.setVisible(false);
 
-        centerPanel.add(surname);
-        centerPanel.add(surnamewarn);
-        centerPanel.add(surnamefield);
+        Surnamepanel.add(surname);
+        Surnamepanel.add(surnamewarn);
+        Surnamepanel.add(surnamefield);
 
         JLabel age = new JLabel("Age:");
-
         age.setVisible(true);
-        agewarn = new JLabel("Age field is empty!");
-        agewarn.setVisible(false);
 
-        centerPanel.add(age);
-        centerPanel.add(agewarn);
-        centerPanel.add(agefield);
 
+        Agepanel.add(age);
+        Agepanel.add(agefield);
+
+        
         JLabel email = new JLabel("Email:");
         emailwarn = new JLabel("Email field is empty!");
         emailguide = new JLabel("Email must contain @ and be at least 6 characters long");
@@ -116,11 +139,12 @@ public class Enrol extends JFrame implements ActionListener {
         emailwarn.setVisible(false);
         emailguide.setVisible(false);
 
-        centerPanel.add(email);
-        centerPanel.add(emailexist);
-        centerPanel.add(emailguide);
-        centerPanel.add(emailwarn);
-        centerPanel.add(emailfield);
+        Emailpanel.add(email);
+        Emailpanel.add(emailfield);
+        Emailpanel.add(emailexist);
+        Emailpanel.add(emailguide);
+        Emailpanel.add(emailwarn);
+        
 
         JLabel password = new JLabel("Password:");
         passwordwarn = new JLabel("Password field is empty!");
@@ -131,10 +155,10 @@ public class Enrol extends JFrame implements ActionListener {
         passwordguide.setVisible(false);
         passwordwarn.setVisible(false);
 
-        centerPanel.add(password);
-        centerPanel.add(passwordwarn);
-        centerPanel.add(passwordguide);
-        centerPanel.add(passwordfield);
+        Passwordpanel.add(password);
+        Passwordpanel.add(passwordwarn);
+        Passwordpanel.add(passwordguide);
+        Passwordpanel.add(passwordfield);
 
         this.add(centerPanel, BorderLayout.CENTER);
 
@@ -162,44 +186,44 @@ public class Enrol extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == this.submitBtn && this.namefield.getText().isEmpty()) {
+        if (e.getSource() == this.submitBtn && this.namefield.getText().trim().isEmpty()) {
             System.out.println("Name empty");
             namewarn.setVisible(true);
         }
-        else if (e.getSource() == this.submitBtn && this.namefield.getText().length() > 0) {
+        else if (e.getSource() == this.submitBtn && this.namefield.getText().trim().length() > 0) {
             namewarn.setVisible(false);
         }
         
 
-        if (e.getSource() == this.submitBtn && this.surnamefield.getText().isEmpty()) {
+        if (e.getSource() == this.submitBtn && this.surnamefield.getText().trim().isEmpty()) {
             System.out.println("Surname empty");
             surnamewarn.setVisible(true);
         }
-         else if (e.getSource() == this.submitBtn && this.surnamefield.getText().length() > 0) {
+         else if (e.getSource() == this.submitBtn && this.surnamefield.getText().trim().length() > 0) {
             surnamewarn.setVisible(false);
         } 
         
         
 
-        if (e.getSource() == this.submitBtn && this.emailfield.getText().isEmpty()) {
+        if (e.getSource() == this.submitBtn && this.emailfield.getText().trim().isEmpty()) {
             System.out.println("Email empty");
             emailwarn.setVisible(true);
         }
-       else if (e.getSource() == this.submitBtn && this.emailfield.getText().length() > 0) {
+       else if (e.getSource() == this.submitBtn && this.emailfield.getText().trim().length() > 0) {
             emailwarn.setVisible(false);
         }        
         
 
-        if (e.getSource() == this.submitBtn && this.passwordfield.getText().isEmpty()) {
+        if (e.getSource() == this.submitBtn && this.passwordfield.getText().trim().isEmpty()) {
             System.out.println("Password empty");
             passwordwarn.setVisible(true);
         }
         
-        else if (e.getSource() == this.submitBtn && this.passwordfield.getText().length() > 0) {
+        else if (e.getSource() == this.submitBtn && this.passwordfield.getText().trim().length() > 0) {
             passwordwarn.setVisible(false);
         }
 
-        if (e.getSource() == this.submitBtn && this.namefield.getText().length() > 0 && this.surnamefield.getText().length() > 0 && this.emailfield.getText().length() > 0 && this.passwordfield.getText().length() > 0) {
+        if (e.getSource() == this.submitBtn && this.namefield.getText().trim().length() > 0 && this.surnamefield.getText().trim().length() > 0 && this.emailfield.getText().trim().length() > 0 && this.passwordfield.getText().trim().length() > 0) {
             System.out.println("SUBMIT");
 
                namewarn.setVisible(false);                
@@ -207,7 +231,7 @@ public class Enrol extends JFrame implements ActionListener {
                emailwarn.setVisible(false);
                passwordwarn.setVisible(false);
                
-            if (this.emailfield.getText().contains("@") && this.emailfield.getText().length() >= 6 && o.validpassword(this.passwordfield.getText())) {
+            if (this.emailfield.getText().contains("@") && this.emailfield.getText().trim().length() >= 6 && o.validpassword(this.passwordfield.getText().trim())) {
                 Accounts ac = new Accounts(this.namefield.getText(), this.surnamefield.getText(), this.emailfield.getText(), (int) this.agefield.getSelectedItem(), this.passwordfield.getText());
 
                 if (o.Existed(ac, o)) {

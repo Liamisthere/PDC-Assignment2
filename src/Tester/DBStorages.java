@@ -28,16 +28,47 @@ public class DBStorages {
     }
 
     public void Accounttable() {
-        this.checkExistedTable("ACCOUNT", "Name VARCHAR(255), Surname VARCHAR(255), Age INT, Email VARCHAR(255), Password VARCHAR(255), Shopping_listEmail VARCHAR(255)");
+
+        if(!this.checkExistedTable("ACCOUNT"))
+        {
+            try{
+                
+                this.statement.addBatch("CREATE TABLE ACCOUNT (Name VARCHAR(255), Surname VARCHAR(255), Age INT, Email VARCHAR(255), Password VARCHAR(255), Shopping_listEmail VARCHAR(255))");
+                this.statement.executeBatch();
+
+                System.out.println("ACCOUNT table has been created");
+            }
+            
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
+      }
+        
+        
     }
 
-    public void Inventorytable() {
-        this.checkExistedTable("INVENTORY", "Product_name VARCHAR(255), Company VARCHAR(255), Price FLOAT(24),  Rating FLOAT(24), Categories VARCHAR(255)");
-
+    public void Inventorytable() {    
+        if(!this.checkExistedTable("INVENTORY"))
+        {
+            try{
+                
+                this.statement.addBatch("CREATE TABLE INVENTORY (Product_name VARCHAR(255), Company VARCHAR(255), Price FLOAT(24),  Rating FLOAT(24), Categories VARCHAR(255))");
+                this.statement.executeBatch();
+                System.out.println("INVENTORY table has been created");
+            }
+            
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
+      }
+        
     }
 
-    private void checkExistedTable(String name, String values) {
+    private boolean checkExistedTable(String name) {
         try {
+            boolean exists = false;
             DatabaseMetaData dbmd = this.conn.getMetaData();
             String[] types = {"TABLE"};
             statement = this.conn.createStatement();
@@ -50,19 +81,18 @@ public class DBStorages {
 
                 if (table_name.equalsIgnoreCase(name)) {
 
-                    System.out.println(name + " table exists");
-                    break;
-                } else {
-                    this.statement.addBatch("CREATE TABLE " + name + " (" + values + ")");
+                    exists = true;
                 }
-
             }
 
             rs.close();
+            
+        return exists;           
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            
+            return false;
         }
-
     }
 
     public void closeConnection() {

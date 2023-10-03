@@ -20,6 +20,9 @@ public class login extends JFrame implements ActionListener{
     public JLabel emailwarn;
     public JLabel passwordwarn;
     
+    public JPanel Emailpanel;
+    public JPanel Passwordpanel;
+    
     public JTextField passwordfield;
     public JTextField emailfield;    
     Accountstore accountants;
@@ -43,7 +46,7 @@ public class login extends JFrame implements ActionListener{
      submitBtn = new JButton("Submit");
      exitBtn = new JButton("Exit");
     
-     this.setSize(400, 400);
+     this.setSize(500, 400);
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      this.setLocationRelativeTo(null);
     }
@@ -61,13 +64,20 @@ public class login extends JFrame implements ActionListener{
     // Center Panel 
      Panel centerPanel =  new Panel();  
      
+     JPanel Emailpanel = new JPanel();
+     JPanel Passwordpanel = new JPanel();
+     
+     centerPanel.add(Emailpanel);
+     centerPanel.add(Passwordpanel);
+     
      JLabel email = new JLabel("Email"); 
      emailwarn = new JLabel("Email field is empty!");
      emailwarn.setVisible(false);
     
-     centerPanel.add(emailwarn);
-     centerPanel.add(email);
-     centerPanel.add(emailfield);
+     
+     Emailpanel.add(email);
+     Emailpanel.add(emailfield);
+     Emailpanel.add(emailwarn);
      
      
      passwordwarn = new JLabel("Password field is empty!");
@@ -75,9 +85,12 @@ public class login extends JFrame implements ActionListener{
      
      
      JLabel password = new JLabel("Password");
-     centerPanel.add(passwordwarn);
-     centerPanel.add(password);
-     centerPanel.add(passwordfield);
+
+     
+     Passwordpanel.add(password);
+     Passwordpanel.add(passwordfield);
+     Passwordpanel.add(passwordwarn);
+     
      
      this.add(centerPanel, BorderLayout.CENTER);
      
@@ -126,7 +139,7 @@ public class login extends JFrame implements ActionListener{
      
      }
      
-     if(e.getSource() == this.submitBtn && this.emailfield.getText().length() > 0 && this.passwordfield.getText().length() > 0)
+     if(e.getSource() == this.submitBtn && this.emailfield.getText().trim().length() > 0 && this.passwordfield.getText().trim().length() > 0)
      {
          
          System.out.println("SUBMIT");

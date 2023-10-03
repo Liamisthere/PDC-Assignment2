@@ -15,6 +15,7 @@ public class DBmain {
     
         store.Accounttable();
         store.Inventorytable();
+        
     
     }
     
