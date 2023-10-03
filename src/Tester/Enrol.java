@@ -9,6 +9,7 @@ import javax.swing.*;
 
 public class Enrol extends JFrame implements ActionListener {
 
+    
     public JButton submitBtn;
     public JButton exitBtn;
     public boolean quit;
@@ -33,8 +34,10 @@ public class Enrol extends JFrame implements ActionListener {
 
     Accountstore o;
 
+    
     public Enrol(Accountstore o) {
         this.o = o;
+        
         initComponents();
         intitPanels();
         initActionListener();
@@ -215,8 +218,14 @@ public class Enrol extends JFrame implements ActionListener {
 
                     System.out.println(ac);
                     o.addUsers(ac, o);
+                    
                     this.setVisible(false);
-
+                    
+                    
+                    
+                    Menu cf = new Menu(o);
+                    cf.setVisible(true);
+                    
                 }
             }  if (this.emailfield.getText().contains("@") && this.emailfield.getText().length() >= 6) {
                 emailguide.setVisible(false);
@@ -236,8 +245,13 @@ public class Enrol extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == this.exitBtn) {
+            
+            
             System.out.println("EXIT");
             this.setVisible(false);
+            
+            Menu cf = new Menu(o);
+            cf.setVisible(true);
 
         }
 

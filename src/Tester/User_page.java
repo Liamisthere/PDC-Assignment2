@@ -27,7 +27,8 @@ public class User_page extends JFrame implements ActionListener{
     public JTable item_list;
     public JTable search_list;
     
-    
+    Accountstore astore;
+    Accounts a;
     Productstore ps;
     
     
@@ -38,12 +39,14 @@ public class User_page extends JFrame implements ActionListener{
 
     
     
-    public User_page(Productstore p)
+    public User_page(Productstore p, Accounts a, Accountstore ac)
     {
      initComponents();
      intitPanels();
      initActionListener();
      this.ps = p;
+     this.a = a;
+     this.astore = ac;
      
      tableModel = new DefaultTableModel();
      tableModel.addColumn("Name");
@@ -154,7 +157,9 @@ public class User_page extends JFrame implements ActionListener{
      {
          System.out.println("EXIT");
          this.setVisible(false);
-        
+         
+         Menu cf = new Menu(astore);
+        cf.setVisible(true);
      }
      
      

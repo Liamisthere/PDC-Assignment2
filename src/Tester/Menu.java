@@ -22,7 +22,6 @@ public class Menu extends JFrame implements ActionListener{
     
     Menu(Accountstore a)
     {
-        
         this.a = a;
         initComponents();
         intitPanels();
@@ -87,7 +86,7 @@ public class Menu extends JFrame implements ActionListener{
                 
         login log = new login(a);
         log.setVisible(true);   
-
+        this.setVisible(false);
         
      
      }  
@@ -97,7 +96,10 @@ public class Menu extends JFrame implements ActionListener{
          System.out.println("ENROL");
          
          Enrol e1 = new Enrol(a);
+         this.setVisible(false);
          e1.setVisible(true);
+         
+         
          
          
      }

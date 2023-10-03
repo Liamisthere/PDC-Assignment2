@@ -22,10 +22,11 @@ public class login extends JFrame implements ActionListener{
     
     public JTextField passwordfield;
     public JTextField emailfield;    
-  
+    Accountstore accountants;
     
     public login(Accountstore a)
     {
+     this.accountants = a;
      this.access = new Access(a);
      initComponents();
      intitPanels();
@@ -141,12 +142,14 @@ public class login extends JFrame implements ActionListener{
        
          Productstore ps = new Productstore();
          
-         User_page pg = new User_page(ps);
+        
          
          boolean existed = access.Login(email, password);
          
          if(existed == true)
          {
+            Accounts a = accountants.select_accounts(email, password);
+            User_page pg = new User_page(ps, a ,accountants);
             pg.setVisible(true);
             this.setVisible(false);
             System.out.println("existed");
@@ -171,8 +174,10 @@ public class login extends JFrame implements ActionListener{
      {
          System.out.println("EXIT");
          
+        Menu cf = new Menu(accountants);
+        cf.setVisible(true);
          
-        // System.exit(0);
+        this.setVisible(false);
      }
      
      

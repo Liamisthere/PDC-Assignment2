@@ -18,6 +18,7 @@ public class Accountstore implements AccountIO {
 
     private ArrayList<Accounts> storage;
 
+
     //Default Constructor that assign this.storage as a new ArrayList for Accounts
     Accountstore() {
         this.storage = new ArrayList<Accounts>();
@@ -300,59 +301,19 @@ public class Accountstore implements AccountIO {
 
 
 
-public boolean validpassword(String password)
-{
-    boolean valid = false;
-     
-   
-  String[] passlist = password.split(password);
-  
-  String[] numbers = {"0","1", "2", "3", "4","5","6", "7", "8", "9"};
-  
-  String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-  
-  int number_count = 0;
-  int alphabet_count = 0;
-  
-  for(String p : passlist)
-  {
-      
-    for(String n :numbers)
-    {
-        if(p.equalsIgnoreCase(n))
-        {
-            number_count++;
-            System.out.println(number_count);
+public boolean validpassword(String password) {
+    int numberCount = 0;
+    int alphabetCount = 0;
+
+    for (char c : password.toCharArray()) {
+        if (Character.isDigit(c)) {
+            numberCount++;
+        } else if (Character.isLetter(c)) {
+            alphabetCount++;
         }
     }
-  }   
- 
-  for(String p : passlist)
-  {
-    for(String alpha :alphabet)
-    {
-        if(p.equalsIgnoreCase(alpha))
-        {
-            alphabet_count++;
-            System.out.println(alphabet_count);
-        }
-    }
-  
-  }
-  
-  
-  if(number_count >= 3 && alphabet_count >= 3)
-  {
-      valid = true;
-      
-  }
-  
-  else
-  {
-      valid = false;
-  }
-  
-  return valid;
+
+    return numberCount >= 3 && alphabetCount >= 3;
 }
 
 
