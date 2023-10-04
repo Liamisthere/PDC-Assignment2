@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,34 @@ public class DBStorages {
     public DBStorages() {
         dbManager = new DBManager();
         conn = dbManager.getConnection();
+    }
+    
+    private ArrayList<Product> Productlist()
+    {
+           ArrayList<Product> pd = new  ArrayList<Product>();
+           
+           
+     Product p1 =   new Product("Blue ball point pen", "Warehouse Stationary", 2.0, 5.0, "Stationary"); 
+     Product p2 =   new Product("PSVR2", "Sony Entertainment", 1000.0, 5.0, "Gaming"); 
+     Product p3 =   new Product("Razer RGB Keyboard", "Razer.com", 50.0, 2.2, "Gaming"); 
+     Product p4 =   new Product("Fluoro Notebook", "Warehouse Stationary", 1.0, 2.324323, "Stationary"); 
+     Product p5 =   new Product("Magic 8 ball", "Novelty.com", 12.0, 5.0, "Novelty"); 
+     Product p6 =   new Product("Red ball point pen", "Warehouse Stationary", 3.0, 5.0, "Stationary"); 
+     Product p7 =   new Product("PS5", "Sony Entertainment", 1000.0, 5.0, "Gaming"); 
+     Product p8 =   new Product("Red Dead Redemption 2", "Rockstar Games", 50.0, 5.0, "Gaming"); 
+     Product p9 =   new Product("T800 endoskeleton", "Skynet", 100000.0, 5.0, "Other"); 
+    
+        pd.add(p1);
+        pd.add(p2);
+        pd.add(p3);
+        pd.add(p4);
+        pd.add(p5);    
+        pd.add(p6);   
+        pd.add(p7);
+        pd.add(p8);   
+        pd.add(p9);
+
+        return pd;
     }
 
     public void Accounttable() {
@@ -52,9 +81,28 @@ public class DBStorages {
         if(!this.checkExistedTable("INVENTORY"))
         {
             try{
-                
                 this.statement.addBatch("CREATE TABLE INVENTORY (Product_name VARCHAR(255), Company VARCHAR(255), Price FLOAT(24),  Rating FLOAT(24), Categories VARCHAR(255))");
+               
+            
+            ArrayList<Product> list =  Productlist();
+            
+            for(Product p : list)
+            {
+                String name = p.getName();
+                String company = p.getCompany();
+                double price = p.getPrice();
+                double rating = p.getRating();
+                String category = p.getCategory();
+                
+                this.statement.addBatch("INSERT INTO INVENTORY VALUES ('" + name +" ', '"+ company +"', "+ price+", "+rating+", '"+category+" ')");
+            }
+                
+                
+                
+                
                 this.statement.executeBatch();
+                
+                
                 System.out.println("INVENTORY table has been created");
             }
             
