@@ -7,7 +7,14 @@ package Tester;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
 /**
  *
  * @author Liam Naidoo
@@ -18,10 +25,12 @@ public class Accountstore implements AccountIO {
 
     private ArrayList<Accounts> storage;
 
+    private Statement statement;
 
     //Default Constructor that assign this.storage as a new ArrayList for Accounts
     Accountstore() {
         this.storage = new ArrayList<Accounts>();
+
 
         //Inputs data in this.storage
         collect_Data(this.storage);
@@ -315,6 +324,27 @@ public boolean validpassword(String password) {
 
     return numberCount >= 3 && alphabetCount >= 3;
 }
+
+
+
+    public void addAccountDB(Accounts a)
+    {
+        try{
+            
+            this.statement.addBatch("INSERT INTO ACCOUNT VALUES ('"+a.getName()+" ', '"+a.getSurname()+"', "+a.getAge()+", '"+a.getEmail()+"', '"+""+a.getName()+" ')");
+            this.statement.executeBatch();    
+            
+        }
+        
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
+    
+    }
+
+
+
 
 
 }

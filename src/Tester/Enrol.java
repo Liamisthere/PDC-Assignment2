@@ -89,7 +89,7 @@ public class Enrol extends JFrame implements ActionListener {
         JPanel Surnamepanel = new JPanel();
         JPanel Agepanel = new JPanel();
         
-        Agepanel.setPreferredSize( new Dimension(100, 50));
+        Agepanel.setPreferredSize( new Dimension(700, 100));
         
         JPanel Passwordpanel = new JPanel();    
         JPanel Emailpanel = new JPanel();
@@ -241,7 +241,8 @@ public class Enrol extends JFrame implements ActionListener {
                     passwordguide.setVisible(false);
 
                     System.out.println(ac);
-                    o.addUsers(ac, o);
+                    
+                    o.addAccountDB(ac);
                     
                     this.setVisible(false);
                     

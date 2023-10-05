@@ -12,9 +12,8 @@ public class DBmain {
     public static void main(String[] args) {
 
     DBStorages store = new DBStorages();
-    
-        store.Accounttable();
-        store.Inventorytable();
+    store.Accounttable();
+    store.Inventorytable();
         
     
     }

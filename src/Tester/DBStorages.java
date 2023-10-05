@@ -142,7 +142,11 @@ public class DBStorages {
             return false;
         }
     }
-
+    
+    
+    
+    
+    
     public void closeConnection() {
         this.dbManager.closeConnections();
     }
