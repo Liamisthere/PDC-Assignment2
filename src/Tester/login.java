@@ -155,6 +155,8 @@ public class login extends JFrame implements ActionListener{
        
          Productstore ps = new Productstore();
          
+         
+         System.out.println(ps.getInventory().size());
         
          
          boolean existed = access.Login(email, password);
