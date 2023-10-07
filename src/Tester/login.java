@@ -11,6 +11,7 @@ import javax.swing.*;
 
 
 
+
 public class login extends JFrame implements ActionListener{
     Access access;
     
@@ -153,18 +154,12 @@ public class login extends JFrame implements ActionListener{
          System.out.println(password);
          
        
-         Productstore ps = new Productstore();
-         
-         
-         System.out.println(ps.getInventory().size());
-        
-         
          boolean existed = access.Login(email, password);
          
          if(existed == true)
          {
             Accounts a = accountants.select_accounts(email, password);
-            User_page pg = new User_page(ps, a ,accountants);
+            User_page pg = new User_page(a ,accountants);
             pg.setVisible(true);
             this.setVisible(false);
             System.out.println("existed");

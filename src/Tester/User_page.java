@@ -8,11 +8,12 @@ import java.awt.event.*;
 import java.awt.BorderLayout;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+import Tester.Productstore;
 
 public class User_page extends JFrame implements ActionListener{
     
-    
+   
+    private Productstore pgs = new Productstore();
     public JButton exitBtn;
     public JButton itemlistBtn;
     public JButton insertitemBtn;
@@ -21,6 +22,8 @@ public class User_page extends JFrame implements ActionListener{
     public JButton removeitemBtn;
     public JButton viewcartBtn;
     public JButton payBtn;
+    public JButton cancelBtn;
+    
     
     public JPanel paypanel;
     public JPanel itemlistpanel;
@@ -30,8 +33,15 @@ public class User_page extends JFrame implements ActionListener{
     public JPanel removeitempanel;
     public JPanel ratepanel;
     
+    public JPanel tablepanel;
+    public JPanel fieldpanel;
+        
+    public JPanel buttonpanel;
+    public JPanel copyrightpanel;
     
     public JTextField searchfield; 
+    
+    
     
     
     public JTable item_list;
@@ -40,7 +50,7 @@ public class User_page extends JFrame implements ActionListener{
     Accountstore astore;
     Accounts a;
     Productstore ps;
-    
+    ArrayList<Product> pt;
     
     public boolean quit;
 
@@ -49,15 +59,14 @@ public class User_page extends JFrame implements ActionListener{
 
     
     
-    public User_page(Productstore p, Accounts a, Accountstore ac)
+    public User_page(Accounts a, Accountstore ac)
     {
+     addRowToTable();
+     this.a = a;
+     this.astore = ac;  
      initComponents();
      intitPanels();
      initActionListener();
-     this.ps = p;
-     this.a = a;
-     this.astore = ac;
-
     }
     
     
@@ -75,7 +84,7 @@ public class User_page extends JFrame implements ActionListener{
     removeitemBtn=  new JButton("Remove item from cart");
     viewcartBtn = new JButton("View cart");
     payBtn  = new JButton("Pay now");
-     
+    cancelBtn = new JButton("Cancel");
      
      this.setSize(500, 500);
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,7 +96,7 @@ public class User_page extends JFrame implements ActionListener{
        
     //North Panel
      JPanel northPanel = new JPanel();
-     JLabel explainLabel = new JLabel("Click on the following commands");
+     JLabel explainLabel = new JLabel("Welcome"+a.getName()+"Click on the following commands");
      northPanel.add(explainLabel);    
      this.add(northPanel, BorderLayout.NORTH);
      
@@ -113,7 +122,10 @@ public class User_page extends JFrame implements ActionListener{
      
         
     
+         
+        System.out.println(pgs.getInventory());
 
+         
      JPanel viewcartpanel= new JPanel();
      JLabel cartLabel = new JLabel("See what's in your cart");
      cartLabel.setVisible(true);
@@ -169,51 +181,38 @@ public class User_page extends JFrame implements ActionListener{
      this.add(centerPanel, BorderLayout.CENTER);
      
      //South panel
-     
-     
-
-     
-    
-    
-
-     
      JPanel southPanel = new JPanel();
-     
-/*     
-    String[] names = {"name","company","rating","price","category"};     
-    String[][] inventory_data = new String[ps.getInventory().size()][1]; // Assuming one column for the product names
-    int count = 0;
-    for (Product p : ps.getInventory()) {
-        inventory_data[count][0] = p.getName();
-        count++;
-    }
-     
-    
-     item_list = new JTable(inventory_data, names);
-     item_list.setVisible(true);
-     
-     
-     
-    
-    ArrayList<Product> searched =  ps.findProduct(searchfield.getText(), ps.getInventory());
-             
-    String[][] search_data = new String[searched.size()][1]; // Assuming one column for the product names
-    int scount = 0;
-    for (Product p : ps.getInventory()) {
-        inventory_data[count][0] = p.getName();
-        scount++;
-    }
-     
-     search_list = new JTable(search_data, names);
-     search_list.setVisible(false);
-     
-     
-    southPanel.add(item_list);
-*/
 
-     southPanel.add(exitBtn);
+    
+    JPanel fieldpanel= new JPanel(); 
+    searchfield.setVisible(false);
+    fieldpanel.add(searchfield);
+     
+     JPanel tablepanel= new JPanel();
+     item_list.setVisible(false);
+     search_list.setVisible(false);
+     tablepanel.add(item_list);
+     tablepanel.add(search_list);
+
+     
+    
+    
+     JPanel buttonpanel= new JPanel();
+     cancelBtn.setVisible(false);
+     exitBtn.setVisible(true);
+     buttonpanel.add(cancelBtn);
+     buttonpanel.add(exitBtn);
+     
+     
+     JPanel copyrightpanel= new JPanel();
      JLabel prop = new JLabel("Created by Liam Naidoo");
-     southPanel.add(prop);
+     copyrightpanel.add(prop);
+     
+     southPanel.add(fieldpanel);
+     southPanel.add(tablepanel);
+     southPanel.add(buttonpanel);
+     southPanel.add(copyrightpanel);
+     
      this.add(southPanel, BorderLayout.SOUTH);
    }
    
@@ -223,7 +222,69 @@ public class User_page extends JFrame implements ActionListener{
    public void initActionListener(){ 
      
      this.exitBtn.addActionListener(this);
+     this.itemlistBtn.addActionListener(this);
+     this.cancelBtn.addActionListener(this);
    }        
+   
+   
+   public void searchtable(ArrayList<Product> list)
+   {
+ 
+       DefaultTableModel model = new DefaultTableModel();
+       model.addColumn("Name");
+       model.addColumn("Company");
+       model.addColumn("Rating");
+       model.addColumn("Price");
+       model.addColumn("Category");
+       
+       item_list = new JTable(model);
+       
+       item_list.setSize(1000, 1000);
+       Object rowData[] = new Object[5];
+       
+       for(int i=0; i < list.size(); i++)
+       {
+          rowData[0] = list.get(i).getName();
+          rowData[1] = list.get(i).getCompany();
+          rowData[2] = list.get(i).getRating();
+          rowData[3] = list.get(i).getPrice();
+          rowData[4] = list.get(i).getCategory();
+          model.addRow(rowData);
+       }
+   }
+   
+   public void addRowToTable()
+   {
+ 
+       DefaultTableModel model = new DefaultTableModel();
+       model.addColumn("Name");
+       model.addColumn("Company");
+       model.addColumn("Rating");
+       model.addColumn("Price");
+       model.addColumn("Category");
+       
+       item_list = new JTable(model);
+       
+       item_list.setSize(1000, 1000);
+       ArrayList<Product> list = pgs.getInventory();
+       Object rowData[] = new Object[5];
+       
+       for(int i=0; i < list.size(); i++)
+       {
+          rowData[0] = list.get(i).getName();
+          rowData[1] = list.get(i).getCompany();
+          rowData[2] = list.get(i).getRating();
+          rowData[3] = list.get(i).getPrice();
+          rowData[4] = list.get(i).getCategory();
+          model.addRow(rowData);
+          
+       }
+       
+       
+       
+       
+   
+   }
    
    
    @Override
@@ -233,9 +294,56 @@ public class User_page extends JFrame implements ActionListener{
       
      if(e.getSource() == this.itemlistBtn)
      {
-         System.out.println("EXIT");
+         System.out.println("Display item_list");
+         
+            insertitemBtn.setEnabled(false);
+            itemlistBtn.setEnabled(false);
+            searchlistBtn.setEnabled(false);
+            rateBtn.setEnabled(false);
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            payBtn.setEnabled(false);
 
+            item_list.setVisible(true);
+            cancelBtn.setVisible(true);
+         
+
+     } 
+     
+      if(e.getSource() == this.searchlistBtn)
+     {
+         searchfield.setVisible(true);
+         if(searchfield.getText().trim().length() > 0)
+         {
+             ArrayList<Product> searched = pgs.findProduct(searchfield.getText(), pgs.getInventory());
+             
+             if(searched.size() > 0)
+             {
+                this.searchtable(searched);
+                search_list.setVisible(true);
+             }
+         }
+            
+     
+     }
+     
+     
+     
+     
+     if(e.getSource() == this.cancelBtn)
+     {
         
+            insertitemBtn.setEnabled(true);
+            itemlistBtn.setEnabled(true);
+            searchlistBtn.setEnabled(true);
+            rateBtn.setEnabled(true);
+            removeitemBtn.setEnabled(true);
+            viewcartBtn.setEnabled(true);
+            payBtn.setEnabled(true);
+             
+
+           item_list.setVisible(false);
+           cancelBtn.setVisible(false);
      }
      
      if(e.getSource() == this.exitBtn)
