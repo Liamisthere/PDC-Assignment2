@@ -22,6 +22,9 @@ public class User_page extends JFrame implements ActionListener{
     public JButton removeitemBtn;
     public JButton viewcartBtn;
     public JButton payBtn;
+    
+    
+    public JButton enterrateBtn;
     public JButton cancelBtn;
     
     
@@ -39,9 +42,12 @@ public class User_page extends JFrame implements ActionListener{
     public JPanel buttonpanel;
     public JPanel copyrightpanel;
     
-    public JTextField searchfield; 
+    public JTextField searchfield;
     
+   
     
+    public JComboBox<String> productfield;
+    public JComboBox<Double> ratefield;
     
     
     public JTable item_list;
@@ -49,8 +55,6 @@ public class User_page extends JFrame implements ActionListener{
     
     Accountstore astore;
     Accounts a;
-    Productstore ps;
-    ArrayList<Product> pt;
     
     public boolean quit;
 
@@ -73,7 +77,22 @@ public class User_page extends JFrame implements ActionListener{
     public void initComponents(){  
 
     
+     productfield = new JComboBox();
+     for (Product t : pgs.getInventory())
+     {
+            this.productfield.addItem(t.getName());
+     }   
         
+  
+     ratefield = new JComboBox();
+     
+     for (double i=0; i <5 ; i+=0.25)
+     {
+        this.ratefield.addItem(i);
+     }   
+     
+     
+     
      searchfield = new JTextField(20);
      exitBtn = new JButton("Exit");
     
@@ -85,6 +104,9 @@ public class User_page extends JFrame implements ActionListener{
     viewcartBtn = new JButton("View cart");
     payBtn  = new JButton("Pay now");
     cancelBtn = new JButton("Cancel");
+    
+    enterrateBtn = new JButton("Enter");
+    
      
      this.setSize(500, 500);
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -185,24 +207,32 @@ public class User_page extends JFrame implements ActionListener{
 
     
     JPanel fieldpanel= new JPanel(); 
+    productfield.setVisible(false);
     searchfield.setVisible(false);
-    fieldpanel.add(searchfield);
-     
+    ratefield.setVisible(false);
+    fieldpanel.add(productfield);
+    fieldpanel.add(searchfield); 
+    fieldpanel.add(ratefield);
+    
+    
      JPanel tablepanel= new JPanel();
      item_list.setVisible(false);
-     search_list.setVisible(false);
+//     search_list.setVisible(false);
      tablepanel.add(item_list);
-     tablepanel.add(search_list);
+//     tablepanel.add(search_list);
 
      
     
     
      JPanel buttonpanel= new JPanel();
      cancelBtn.setVisible(false);
+     enterrateBtn.setVisible(false);
      exitBtn.setVisible(true);
+     
+     buttonpanel.add(enterrateBtn);
      buttonpanel.add(cancelBtn);
      buttonpanel.add(exitBtn);
-     
+
      
      JPanel copyrightpanel= new JPanel();
      JLabel prop = new JLabel("Created by Liam Naidoo");
@@ -224,9 +254,12 @@ public class User_page extends JFrame implements ActionListener{
      this.exitBtn.addActionListener(this);
      this.itemlistBtn.addActionListener(this);
      this.cancelBtn.addActionListener(this);
+     this.enterrateBtn.addActionListener(this);
+     this.rateBtn.addActionListener(this);
+     
    }        
    
-   
+   /*
    public void searchtable(ArrayList<Product> list)
    {
  
@@ -252,7 +285,7 @@ public class User_page extends JFrame implements ActionListener{
           model.addRow(rowData);
        }
    }
-   
+   */
    public void addRowToTable()
    {
  
@@ -310,7 +343,64 @@ public class User_page extends JFrame implements ActionListener{
 
      } 
      
-      if(e.getSource() == this.searchlistBtn)
+     
+     if(e.getSource() == this.rateBtn)
+     {
+         System.out.println("Rate an item");
+         
+            insertitemBtn.setEnabled(false);
+            itemlistBtn.setEnabled(false);
+            searchlistBtn.setEnabled(false);
+            rateBtn.setEnabled(false);
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            payBtn.setEnabled(false);
+
+            item_list.setVisible(true);
+            enterrateBtn.setVisible(true);
+            cancelBtn.setVisible(true);
+         
+
+            productfield.setVisible(true);
+            ratefield.setVisible(true);
+     } 
+             if(e.getSource() == this.enterrateBtn)
+            {
+                insertitemBtn.setEnabled(true);
+                itemlistBtn.setEnabled(true);
+                searchlistBtn.setEnabled(true);
+                rateBtn.setEnabled(true);
+                removeitemBtn.setEnabled(true);
+                viewcartBtn.setEnabled(true);
+                payBtn.setEnabled(true);
+             
+            
+                item_list.setVisible(false);
+                enterrateBtn.setVisible(false);
+                cancelBtn.setVisible(false);
+                productfield.setVisible(false);
+                ratefield.setVisible(false);
+                
+                
+                
+                System.out.println("Rating has been done");
+                
+                String product_name = (String) productfield.getSelectedItem();                
+                double rate = (double) ratefield.getSelectedItem();
+
+                pgs.ratedProduct(product_name, rate);
+                
+                
+                System.out.println(pgs.getInventory());
+                
+            
+            }
+             
+    
+             
+     
+     
+     /* if(e.getSource() == this.searchlistBtn)
      {
          searchfield.setVisible(true);
          if(searchfield.getText().trim().length() > 0)
@@ -319,20 +409,21 @@ public class User_page extends JFrame implements ActionListener{
              
              if(searched.size() > 0)
              {
-                this.searchtable(searched);
-                search_list.setVisible(true);
+                //this.searchtable(searched);
+                //search_list.setVisible(true);
              }
          }
             
      
      }
      
+     */
      
-     
-     
+
+      
      if(e.getSource() == this.cancelBtn)
      {
-        
+            
             insertitemBtn.setEnabled(true);
             itemlistBtn.setEnabled(true);
             searchlistBtn.setEnabled(true);
@@ -341,7 +432,7 @@ public class User_page extends JFrame implements ActionListener{
             viewcartBtn.setEnabled(true);
             payBtn.setEnabled(true);
              
-
+            
            item_list.setVisible(false);
            cancelBtn.setVisible(false);
      }

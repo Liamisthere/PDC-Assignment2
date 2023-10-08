@@ -68,6 +68,21 @@ public class Productstore implements ProductIO{
     }
     
     
+    public void ratedProduct(String product_name, double rating)
+    {   
+        ArrayList <Product> pd = this.inventory;
+        
+        Product collect;
+        
+        for(Product p : pd)
+        {
+            if(p.getName().equalsIgnoreCase(product_name))
+            {
+                p.setRating(rating);
+            }
+        }
+    }
+    
     //Display method prints the array_list with number at the front as item number
     public String display(ArrayList<Product> search_list)
     { 
