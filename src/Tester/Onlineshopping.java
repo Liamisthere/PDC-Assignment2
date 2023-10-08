@@ -26,9 +26,9 @@ class Onlineshopping {
        DBManager dbManager = new DBManager();
        System.out.println(dbManager.getConnection());
        
-        DBStorages store = new DBStorages();
-        store.Accounttable();
-        store.Inventorytable();
+       DBStorages store = new DBStorages();
+       store.Accounttable();
+       store.Inventorytable();
        
        Accountstore Accounts = new Accountstore();
        

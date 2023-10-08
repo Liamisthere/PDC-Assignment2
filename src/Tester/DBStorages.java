@@ -114,7 +114,7 @@ public class DBStorages {
         
     }
 
-    private boolean checkExistedTable(String name) {
+    public boolean checkExistedTable(String name) {
         try {
             boolean exists = false;
             DatabaseMetaData dbmd = this.conn.getMetaData();
@@ -144,7 +144,20 @@ public class DBStorages {
     }
     
     
+    public void addAccountDB(Accounts a)
+    {
+        try{
+            
+            this.statement.addBatch("INSERT INTO ACCOUNT VALUES ('"+a.getName()+" ', '"+a.getSurname()+"', "+a.getAge()+", '"+a.getEmail()+"', '"+""+a.getName()+" ')");
+            this.statement.executeBatch();    
+        }
+        
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
     
+    }
     
     
     public void closeConnection() {

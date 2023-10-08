@@ -327,22 +327,6 @@ public boolean validpassword(String password) {
 
 
 
-    public void addAccountDB(Accounts a)
-    {
-        try{
-            
-            this.statement.addBatch("INSERT INTO ACCOUNT VALUES ('"+a.getName()+" ', '"+a.getSurname()+"', "+a.getAge()+", '"+a.getEmail()+"', '"+""+a.getName()+" ')");
-            this.statement.executeBatch();    
-            
-        }
-        
-       catch(SQLException ex)
-       {
-           System.out.println(ex.getMessage());
-       }
-    
-    }
-
 
 
 

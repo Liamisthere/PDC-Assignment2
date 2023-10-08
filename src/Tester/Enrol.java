@@ -40,12 +40,13 @@ public class Enrol extends JFrame implements ActionListener {
     public JLabel emailguide;
     public JLabel passwordguide;
 
+    DBStorages DB;
     Accountstore o;
 
     
     public Enrol(Accountstore o) {
         this.o = o;
-        
+        DB = new DBStorages();
         initComponents();
         intitPanels();
         initActionListener();
@@ -242,7 +243,7 @@ public class Enrol extends JFrame implements ActionListener {
 
                     System.out.println(ac);
                     
-                    o.addAccountDB(ac);
+                    DB.addAccountDB(ac);
                     
                     this.setVisible(false);
                     
