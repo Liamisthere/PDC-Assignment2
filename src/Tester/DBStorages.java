@@ -23,9 +23,14 @@ public class DBStorages {
     private final Connection conn;
     private Statement statement;
 
-    public DBStorages() {
+    public DBStorages() {        
         dbManager = new DBManager();
         conn = dbManager.getConnection();
+        try {
+            statement = conn.createStatement();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     private ArrayList<Product> Productlist()
@@ -62,7 +67,7 @@ public class DBStorages {
         {
             try{
                 
-                this.statement.addBatch("CREATE TABLE ACCOUNT (Name VARCHAR(255), Surname VARCHAR(255), Age INT, Email VARCHAR(255), Password VARCHAR(255), Shopping_listEmail VARCHAR(255))");
+                this.statement.addBatch("CREATE TABLE ACCOUNT (Name VARCHAR(255), Surname VARCHAR(255), Age INT, Email VARCHAR(255), Password VARCHAR(255), Shopping_list VARCHAR(255))");
                 this.statement.executeBatch();
 
                 System.out.println("ACCOUNT table has been created");
@@ -125,7 +130,7 @@ public class DBStorages {
             while (rs.next()) {
 
                 String table_name = rs.getString("TABLE_NAME");
-                System.out.print(table_name);
+                System.out.println(table_name);
 
                 if (table_name.equalsIgnoreCase(name)) {
 
@@ -148,7 +153,7 @@ public class DBStorages {
     {
         try{
             
-            this.statement.addBatch("INSERT INTO ACCOUNT VALUES ('"+a.getName()+" ', '"+a.getSurname()+"', "+a.getAge()+", '"+a.getEmail()+"', '"+""+a.getName()+" ')");
+            this.statement.addBatch("INSERT INTO ACCOUNT VALUES ('"+a.getName()+" ', '"+a.getSurname()+"', "+a.getAge()+", '"+a.getEmail()+"', '"+a.getPassword()+"', '"+""+a.getShopping_list()+" ')");
             this.statement.executeBatch();    
         }
         
