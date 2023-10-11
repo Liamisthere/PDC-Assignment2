@@ -26,7 +26,8 @@ public class User_page extends JFrame implements ActionListener {
     public JButton cancelBtn;
     
     public JButton entersearchBtn;
-
+    public JButton enteritemBtn;
+    
     public JPanel paypanel;
     public JPanel itemlistpanel;
     public JPanel insertitempanel;
@@ -45,10 +46,14 @@ public class User_page extends JFrame implements ActionListener {
 
     public JComboBox<String> productfield;
     public JComboBox<Double> ratefield;
+    
+    public JComboBox<Integer> quantityfield;
+    
 
     public JTable item_list;
     public JTable search_list;
     public JTable user_table;
+    
    
     public JScrollPane scroll;
 
@@ -83,14 +88,22 @@ public class User_page extends JFrame implements ActionListener {
             this.ratefield.addItem(i);
         }
 
+        quantityfield = new JComboBox();
+        
+        for(int i = 1; i<101; i++)
+        {
+            this.quantityfield.addItem(i); 
+        }
+        
+        
         searchtext = new JLabel("Enter keywords:");
         
         
         searchfield = new JTextField(20);
         exitBtn = new JButton("Exit");
-
-        insertitemBtn = new JButton("Insert item into cart");
+        
         itemlistBtn = new JButton("See item list");
+        insertitemBtn = new JButton("Insert item into cart");
         searchlistBtn = new JButton("Search up item");
         rateBtn = new JButton("Rate item");
         removeitemBtn = new JButton("Remove item from cart");
@@ -99,8 +112,9 @@ public class User_page extends JFrame implements ActionListener {
         cancelBtn = new JButton("Cancel");
 
         enterrateBtn = new JButton("Enter");
-        entersearchBtn = new JButton("Enter");
-
+        entersearchBtn = new JButton("Enter"); 
+        enteritemBtn = new JButton("Enter");
+        
         this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -120,6 +134,10 @@ public class User_page extends JFrame implements ActionListener {
         JPanel itemlistpanel = new JPanel();
         itemlistBtn.setVisible(true);
         itemlistpanel.add(itemlistBtn);
+        
+        JPanel insertpanel = new JPanel();
+        insertitemBtn.setVisible(true);
+        insertpanel.add(insertitemBtn);
 
         JPanel insertitempanel = new JPanel();
         itemlistBtn.setVisible(true);
@@ -169,6 +187,7 @@ public class User_page extends JFrame implements ActionListener {
         buttonpanel.add(cancelBtn);
 
         centerPanel.add(itemlistpanel);
+        centerPanel.add(insertpanel);
         centerPanel.add(insertitempanel);
         centerPanel.add(viewcartpanel);
         centerPanel.add(ratepanel);
@@ -181,13 +200,16 @@ public class User_page extends JFrame implements ActionListener {
         productfield.setVisible(false);
         searchfield.setVisible(false);
         ratefield.setVisible(false);
+        quantityfield.setVisible(false);
         entersearchBtn.setVisible(false);
+        enteritemBtn.setVisible(false);
         fieldpanel.add(searchtext);
         fieldpanel.add(productfield);
         fieldpanel.add(searchfield);
         fieldpanel.add(ratefield);
-        fieldpanel.add(entersearchBtn); 
-        
+        fieldpanel.add(quantityfield);
+        fieldpanel.add(entersearchBtn);
+        fieldpanel.add(enteritemBtn);
         
  
                 
@@ -219,7 +241,8 @@ public class User_page extends JFrame implements ActionListener {
         this.rateBtn.addActionListener(this);
         this.searchlistBtn.addActionListener(this);
         this.entersearchBtn.addActionListener(this);
-        
+        this.insertitemBtn.addActionListener(this);
+        this.enteritemBtn.addActionListener(this);
 
     }
 
@@ -456,15 +479,72 @@ public class User_page extends JFrame implements ActionListener {
             searchfield.setVisible(false);
             searchtext.setVisible(false);
             entersearchBtn.setVisible(false);
-
+            quantityfield.setVisible(false);
+            enteritemBtn.setVisible(false);
             //search_list.setVisible(false);  
-             
             scroll.setVisible(false);
             
             
 
         }
 
+        if (e.getSource() == this.insertitemBtn) {
+            System.out.println("Insert item to cart");
+            insertitemBtn.setEnabled(false);
+            itemlistBtn.setEnabled(false);
+            searchlistBtn.setEnabled(false);
+            rateBtn.setEnabled(false);
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            payBtn.setEnabled(false);
+            
+            item_list.setVisible(true); 
+            productfield.setVisible(true);
+            quantityfield.setVisible(true);
+            enteritemBtn.setVisible(true);
+            scroll.setVisible(true);
+            cancelBtn.setVisible(true);
+            
+        }
+        
+        if(e.getSource() == this.enteritemBtn)
+        {
+            
+            String product_name = (String) productfield.getSelectedItem();
+            int quantity = (int) quantityfield.getSelectedItem();
+            
+            
+            System.out.println(a.Shop_listed());
+            
+            astore.insertion(a,product_name, quantity);
+            System.out.println(a.Shop_listed());
+            
+            insertitemBtn.setEnabled(true);
+            itemlistBtn.setEnabled(true);
+            searchlistBtn.setEnabled(true);
+            rateBtn.setEnabled(true);
+            removeitemBtn.setEnabled(true);
+            viewcartBtn.setEnabled(true);
+            payBtn.setEnabled(true);
+            
+            
+            searchfield.setVisible(false);
+            user_table.setVisible(false);
+            item_list.setVisible(false);
+            cancelBtn.setVisible(false);
+            enterrateBtn.setVisible(false);
+            enteritemBtn.setVisible(false);
+            productfield.setVisible(false);
+            ratefield.setVisible(false);
+            searchfield.setVisible(false);
+            searchtext.setVisible(false);
+            entersearchBtn.setVisible(false);
+            quantityfield.setVisible(false);
+            //search_list.setVisible(false);  
+             
+            scroll.setVisible(false);
+        }
+        
         if (e.getSource() == this.exitBtn) {
             System.out.println("EXIT");
             this.setVisible(false);

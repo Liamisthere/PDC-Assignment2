@@ -154,6 +154,39 @@ public class Accountstore {
     }
 
 
+    
+
+    
+    
+public void insertion(Accounts a,String product, int quantity) 
+{
+   String convert = String.valueOf(quantity);
+   
+   
+   String[] splitted = a.Shop_listed().split(",");
+   
+   
+   
+   String hash = product;
+   hash +="X".trim();
+   hash += convert;
+   
+   System.out.println(hash);
+
+  
+      ArrayList<String> user_shop = a.getShopping_list();
+      user_shop.add(hash);
+      a.setShopping_list(user_shop);
+     
+      
+      
+      SQL.updateAccount(a);
+      
+
+}    
+    
+    
+
 
 public boolean validpassword(String password) {
     int numberCount = 0;

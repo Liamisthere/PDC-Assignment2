@@ -23,6 +23,7 @@ public class DBStorages {
     private final Connection conn;
     private Statement statement;
 
+
     public DBStorages() {        
         dbManager = new DBManager();
         conn = dbManager.getConnection();
@@ -65,8 +66,7 @@ public class DBStorages {
 
         if(!this.checkExistedTable("ACCOUNT"))
         {
-            try{
-                
+            try{               
                 this.statement.addBatch("CREATE TABLE ACCOUNT (Name VARCHAR(255), Surname VARCHAR(255), Age INT, Email VARCHAR(255), Password VARCHAR(255), Shopping_list VARCHAR(255))");
                 this.statement.executeBatch();
 
@@ -153,7 +153,7 @@ public class DBStorages {
     {
         try{
             
-            this.statement.addBatch("INSERT INTO ACCOUNT VALUES ('"+a.getName()+" ', '"+a.getSurname()+"', "+a.getAge()+", '"+a.getEmail()+"', '"+a.getPassword()+"', '"+""+a.getShopping_list()+" ')");
+            this.statement.addBatch("INSERT INTO ACCOUNT VALUES ('"+a.getName()+" ', '"+a.getSurname()+"', "+a.getAge()+", '"+a.getEmail()+"', '"+a.getPassword()+"', 'NULL')");
             this.statement.executeBatch();    
         }
         
@@ -168,7 +168,11 @@ public class DBStorages {
     {
         try{
             
-            this.statement.addBatch("UPDATE ACCOUNT SET Shopping_list = '"+a.getShopping_list()+"' WHERE Email = '"+a.getEmail()+"'");
+                String list = "";
+                for (String t : a.getShopping_list()) {
+                    list += t+", ";
+                }
+            this.statement.addBatch("UPDATE ACCOUNT SET Shopping_list = '"+list+"' WHERE Email = '"+a.getEmail()+"'");
             this.statement.executeBatch();    
         }
         
@@ -214,13 +218,20 @@ public class DBStorages {
            String password  = rs.getString("PASSWORD");
            String shopping_list =  rs.getString("SHOPPING_LIST");
            
-           String[] split = shopping_list.split(",");
            ArrayList<String> shop_array = new ArrayList<String>() ;
+           
+           
+           
+           if(shopping_list != null)
+           {
+           String[] split = shopping_list.split(", ");
            
            for(String item : split)
            {
                shop_array.add(item);
            }
+           }
+           
            
            
            Accounts ac = new Accounts(name, surname, email, age,  password);
