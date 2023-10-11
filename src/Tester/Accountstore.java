@@ -159,24 +159,60 @@ public class Accountstore {
     
     
 public void insertion(Accounts a,String product, int quantity) 
-{
-   String convert = String.valueOf(quantity);
+{   
+   ArrayList<String> user_shop = a.getShopping_list(); 
+   boolean exist = false;
+   int index = 0;
+   for(String items :user_shop)
+   {
+       String[] separate = items.split("X");
+       String clear = separate[0];
+       System.out.println(clear+":"+product);
+       if(clear.equals(product))
+       {
+            exist =true;
+            index = user_shop.indexOf(items);
+            System.out.println(index);
+       }
+   }
+   
+   if(exist ==true)
+   {
+     System.out.println("HERE");
+     String wanted_item = user_shop.get(index);
+     
+     String[] separate = wanted_item.split("X");
+     
+     String stringnumber = separate[1];
+     
+     int change_value = Integer.parseInt(stringnumber);
+     
+     String convert = String.valueOf(change_value + quantity);
+     String hash = product;
+     hash +="X".trim();
+     hash += convert;
+     
+     user_shop.remove(index);
+     user_shop.add(hash);
+     
+    System.out.println(hash);
+    a.setShopping_list(user_shop);
+   }
+   
+   else{
+    System.out.println("ALSO HERE");
+    String convert = String.valueOf(quantity);
+    String hash = product;
+    hash +="X".trim();
+    hash += convert;
+   
+    System.out.println(hash);
+    user_shop.add(hash);
+    a.setShopping_list(user_shop);
    
    
-   String[] splitted = a.Shop_listed().split(",");
+   }
    
-   
-   
-   String hash = product;
-   hash +="X".trim();
-   hash += convert;
-   
-   System.out.println(hash);
-
-  
-      ArrayList<String> user_shop = a.getShopping_list();
-      user_shop.add(hash);
-      a.setShopping_list(user_shop);
      
       
       

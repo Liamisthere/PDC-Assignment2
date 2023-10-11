@@ -490,6 +490,7 @@ public class User_page extends JFrame implements ActionListener {
 
         if (e.getSource() == this.insertitemBtn) {
             System.out.println("Insert item to cart");
+            System.out.println(a.Shop_listed());
             insertitemBtn.setEnabled(false);
             itemlistBtn.setEnabled(false);
             searchlistBtn.setEnabled(false);
