@@ -172,12 +172,7 @@ public boolean validpassword(String password) {
 
 
 
-    public void collect()
-    {
-    
-        
-    
-    }
+
         
 
 

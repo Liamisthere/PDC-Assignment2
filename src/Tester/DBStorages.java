@@ -180,6 +180,22 @@ public class DBStorages {
     }
     
    
+    public void updateProduct(Product p)
+    {
+        try{
+            
+            float convert = (float) p.getRating();
+            
+            this.statement.addBatch("UPDATE INVENTORY SET Rating = '"+convert+"' WHERE PRODUCT_NAME = '"+p.getName()+"'");
+            this.statement.executeBatch();    
+        }
+        
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
+    
+    }
     
     
     
@@ -192,7 +208,7 @@ public class DBStorages {
        while(rs.next())
        {
            String name = rs.getString("NAME");
-           String surname = rs.getString("NAME");
+           String surname = rs.getString("SURNAME");
            int age = rs.getInt("AGE");
            String email  = rs.getString("EMAIL");
            String password  = rs.getString("PASSWORD");
@@ -228,6 +244,46 @@ public class DBStorages {
       return null;
     }
     
+     
+     
+     
+     public ArrayList<Product> collectProducts() {
+      try {
+        ResultSet rs = this.statement.executeQuery("SELECT * FROM INVENTORY");
+        ArrayList<Product> collect = new  ArrayList<Product>();
+          
+       while(rs.next())
+       {
+           String name = rs.getString("PRODUCT_NAME");
+           String company = rs.getString("COMPANY");
+           double price = rs.getDouble("PRICE");
+           double rating  = rs.getDouble("RATING");
+           String category  = rs.getString("CATEGORIES");           
+           
+           Product pd = new Product(name, company, price, rating, category);
+           
+           collect.add(pd);
+      }
+     
+      this.statement.executeBatch();
+        rs.close();
+        
+        
+        return collect;
+      }
+        
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
+      
+      return null;
+    }
+     
+     
+     
+     
+     
     
     
     public void closeConnection() {

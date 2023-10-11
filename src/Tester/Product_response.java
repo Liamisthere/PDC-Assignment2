@@ -161,7 +161,6 @@ public class Product_response {
 
                     //Set the rating of seleced product and update product
                     p.setRating(rated);
-                    Products.update(p);
 
                     //End while loop as condition is met
                     selected = true;

@@ -160,6 +160,7 @@ public class login extends JFrame implements ActionListener{
          {
             Accounts a = accountants.select_accounts(email, password);
             User_page pg = new User_page(a ,accountants);
+            
             pg.setVisible(true);
             this.setVisible(false);
             System.out.println("existed");

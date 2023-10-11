@@ -14,15 +14,16 @@ import java.io.*;
 
 //Productstore is responsible in handling product's functions 
 //Productstore implements ProductIO
-public class Productstore implements ProductIO{
+public class Productstore{
 
     private ArrayList<Product> inventory;
-    
+    private DBStorages SQL = new DBStorages();
     
     
     //Sets Inventory
     public void setInventory(ArrayList<Product> inventory) {
         this.inventory = inventory;
+        
     }
 
     
@@ -33,8 +34,16 @@ public class Productstore implements ProductIO{
 
     //Constructor that create ArrayList<>() in inventory and uses inserts_products to insert Products to list
     Productstore() {
-        this.inventory = new ArrayList<>();
-        insert_Products(this.inventory);
+       
+        if(this.SQL.collectProducts() != null){
+          this.inventory = this.SQL.collectProducts();
+        }
+        
+        else
+        {
+            this.inventory = new ArrayList<Product>();
+        }
+
     }
 
     //Search for product which uses string and an ArrayList<Product> 
@@ -68,7 +77,6 @@ public class Productstore implements ProductIO{
     }
     
     
-    
     public void ratedProduct(String product_name, double rating)
     {   
         
@@ -81,6 +89,7 @@ public class Productstore implements ProductIO{
             if(p.getName().equalsIgnoreCase(product_name))
             {
                 p.setRating(rating);
+                SQL.updateProduct(p);
             }
         }
         
@@ -196,109 +205,7 @@ public class Productstore implements ProductIO{
     }
     
     
-    
-    //Overrides insert_Products from ProductIO
-    @Override
-    public void insert_Products(ArrayList<Product> o) {
-        try {
-            
-            
-            //Read text file ProductDatabase.txt
-            FileReader s = new FileReader("./resources/ProductDatabase.txt");
-                       
-            BufferedReader reader = new BufferedReader(s);
-            String line = null;
-     
-            //Uses while loop to go through each line in the file
-            while((line = reader.readLine()) != null) {
-             
-                //Splits line into an array by ", "
-                Object[] account_store = line.split(", ");
 
-                String name = (String) account_store[0];
-                String company = (String) account_store[1];
-
-                String number_price = (String) account_store[2];
-                double price = Double.parseDouble(number_price);
-
-                String number_rate = (String) account_store[3];
-                double rate = Double.parseDouble(number_rate);
-
-                String category = (String) account_store[4];
-                
-                
-                //Insert all values to Product constructor and add it to Arraylist
-                Product p1 = new Product(name, company, price, rate, category);
-                o.add(p1);   
-            }
-
-        } 
-        //Catch FileNotFoundException and prompt user with message   
-        catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } 
-        //Catch IOException and prompt user with message   
-        catch (IOException e) {
-            System.out.println("Error reading from file ");
-        }
-
-    }
-
-     //Overrides update from ProductIO
-    @Override
-    public void update(Product p)
-    {        
-        try{
-            
-            //Read text file ProductDatabase.txt
-            FileReader s = new FileReader("./resources/ProductDatabase.txt");
-            BufferedReader reader = new BufferedReader(s);
-            LineNumberReader ln = new LineNumberReader(s);
-            String line = null;
-             
-            int position = 0;
-            String collect = "";
-            
-            //Uses while loop to go through each line in the file
-            while((line = reader.readLine())!=null)
-            {
-                //Splits line into an array by ", "
-                Object[] array_list =  line.split(", ");
-                
-                //If array_list[0] equals to given name then add 1 to position
-                if(array_list[0].equals(p.getName()))
-                {
-                    position +=1;
-                }
-                
-                //Otherwise add line with newline to collect
-                else
-                {
-                    collect += line+"\n";
-                }
-            }
-            
-            //Print collect and p to ProductDatabase.txt
-            PrintWriter pw = new PrintWriter(new FileOutputStream("./resources/ProductDatabase.txt"));
-            pw.print(collect);
-            pw.print(p);
-            pw.close();
-           
-            
-        }
-        
-        //Catch FileNotFoundException and prompt user with message   
-        catch(FileNotFoundException e)
-        {
-             System.out.println("File not found");
-        }
-        //Catch IOException and prompt user with message        
-        catch(IOException e)
-        {
-            System.out.println("Error reading from file ");
-        }
-    
-    }
     
     // Overrides toString method to print out details about the product
     @Override
