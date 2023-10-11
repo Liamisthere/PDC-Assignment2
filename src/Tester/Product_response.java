@@ -45,7 +45,6 @@ public class Product_response {
                 if (index > 0 && index <= list_size) {
                     Product item = Products.select(Products.getInventory(), index);
                     Products.hashProduct(item, a);
-                    o.update_accounts(a);
 
                     //end while loop as it's done
                     selected = true;
@@ -217,7 +216,7 @@ public class Product_response {
                     //If get number equals 1 than remove item from shopping list and update accounts
                     if (get_number == 1) {
                         shop_list.remove(index);
-                        o.update_accounts(a);
+                  
 
                         //End while loop as condition is met
                         removed = true;
@@ -231,7 +230,7 @@ public class Product_response {
                         //Insert item name and new number into shopping list and update accounts
                         String layout = get_item + "X" + subtract;
                         shop_list.add(layout);
-                        o.update_accounts(a);
+                      
 
                         //End while loop as condition is met
                         removed = true;

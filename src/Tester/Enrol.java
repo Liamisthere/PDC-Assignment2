@@ -244,6 +244,7 @@ public class Enrol extends JFrame implements ActionListener {
                     System.out.println(ac);
                     
                     DB.addAccountDB(ac);
+                    o.addUsers(ac);
                     
                     this.setVisible(false);
                     

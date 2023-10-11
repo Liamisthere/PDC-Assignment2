@@ -164,6 +164,71 @@ public class DBStorages {
     
     }
     
+    public void updateAccount(Accounts a)
+    {
+        try{
+            
+            this.statement.addBatch("UPDATE ACCOUNT SET Shopping_list = '"+a.getShopping_list()+"' WHERE Email = '"+a.getEmail()+"'");
+            this.statement.executeBatch();    
+        }
+        
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
+    
+    }
+    
+   
+    
+    
+    
+    
+     public ArrayList<Accounts> collectAccounts() {
+      try {
+        ResultSet rs = this.statement.executeQuery("SELECT * FROM ACCOUNT");
+        ArrayList<Accounts> collect = new  ArrayList<Accounts>();
+          
+       while(rs.next())
+       {
+           String name = rs.getString("NAME");
+           String surname = rs.getString("NAME");
+           int age = rs.getInt("AGE");
+           String email  = rs.getString("EMAIL");
+           String password  = rs.getString("PASSWORD");
+           String shopping_list =  rs.getString("SHOPPING_LIST");
+           
+           String[] split = shopping_list.split(",");
+           ArrayList<String> shop_array = new ArrayList<String>() ;
+           
+           for(String item : split)
+           {
+               shop_array.add(item);
+           }
+           
+           
+           Accounts ac = new Accounts(name, surname, email, age,  password);
+           ac.setShopping_list(shop_array);
+ 
+           collect.add(ac);
+      }
+     
+      this.statement.executeBatch();
+        rs.close();
+        
+        
+        return collect;
+      }
+        
+       catch(SQLException ex)
+       {
+           System.out.println(ex.getMessage());
+       }
+      
+      return null;
+    }
+    
+    
     
     public void closeConnection() {
         this.dbManager.closeConnections();

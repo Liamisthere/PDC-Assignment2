@@ -52,7 +52,7 @@ public class Access {
             
             //Fill in Accounts object with values and sends into addusers() method.
             Accounts A1 = new Accounts(name, surname, email, age, password);
-            o.addUsers(A1, o);
+            o.addUsers(A1);
 
             //Catches any InputMismatchException and sends a message
         } catch (InputMismatchException InputMismatchException) {

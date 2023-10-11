@@ -47,6 +47,8 @@ public class User_page extends JFrame implements ActionListener {
     public JTable item_list;
     public JTable search_list;
     public JTable user_table;
+    
+    public JScrollPane scroll;
 
     Accountstore astore;
     Accounts a;
@@ -76,6 +78,7 @@ public class User_page extends JFrame implements ActionListener {
             this.ratefield.addItem(i);
         }
 
+        
         searchfield = new JTextField(20);
         exitBtn = new JButton("Exit");
 
@@ -99,7 +102,7 @@ public class User_page extends JFrame implements ActionListener {
 
         //North Panel
         JPanel northPanel = new JPanel();
-        JLabel explainLabel = new JLabel("Welcome" + a.getName() + "Click on the following commands");
+        JLabel explainLabel = new JLabel("Welcome " + a.getName() + " Click on the following commands");
         northPanel.add(explainLabel);
         this.add(northPanel, BorderLayout.NORTH);
 
@@ -185,8 +188,11 @@ public class User_page extends JFrame implements ActionListener {
         item_list.setVisible(false);
         user_table.setVisible(false);
 //     search_list.setVisible(false);
-        tablepanel.add(item_list);
-        tablepanel.add(user_table);
+        scroll = new JScrollPane(item_list);
+        scroll.setSize(25, 50);
+        tablepanel.add(scroll);
+        //tablepanel.add(user_table);
+        scroll.setVisible(false);
 //     tablepanel.add(search_list);
 
         JPanel buttonpanel = new JPanel();
@@ -248,11 +254,10 @@ public class User_page extends JFrame implements ActionListener {
    }
      */
     public void addRowToTable() {
-
+        
         DefaultTableModel model = new DefaultTableModel();
-        String[] itemcolumns = {"Name", "Company", "Rating", "Price", "Category"};
 
-        model.addRow(itemcolumns);
+
         model.addColumn("Name");
         model.addColumn("Company");
         model.addColumn("Rating");
@@ -260,8 +265,8 @@ public class User_page extends JFrame implements ActionListener {
         model.addColumn("Category");
 
         item_list = new JTable(model);
-
-        item_list.setSize(1000, 1000);
+        
+        item_list.setSize(200, 200);
         ArrayList<Product> list = pgs.getInventory();
         Object rowData[] = new Object[5];
 
@@ -277,6 +282,7 @@ public class User_page extends JFrame implements ActionListener {
         item_list.setEnabled(false);
     }
 
+    
     public void UserItemTable() {
 
         DefaultTableModel model = new DefaultTableModel();
@@ -319,6 +325,7 @@ public class User_page extends JFrame implements ActionListener {
 
             item_list.setVisible(true);
             cancelBtn.setVisible(true);
+            scroll.setVisible(true);
 
         }
 
@@ -339,6 +346,7 @@ public class User_page extends JFrame implements ActionListener {
 
             productfield.setVisible(true);
             ratefield.setVisible(true);
+            scroll.setVisible(true);
         }
         if (e.getSource() == this.enterrateBtn) {
             insertitemBtn.setEnabled(true);
@@ -413,6 +421,7 @@ public class User_page extends JFrame implements ActionListener {
             user_table.setVisible(false);
             item_list.setVisible(false);
             cancelBtn.setVisible(false);
+            scroll.setVisible(false);
         }
 
         if (e.getSource() == this.exitBtn) {

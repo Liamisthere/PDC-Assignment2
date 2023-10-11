@@ -62,7 +62,7 @@ public class payproduct {
                 }
 
                 //update the current account and end while loop as it's done
-                o.update_accounts(a);
+                
                 terminate = true;
             } // If user's response it 'n' (ignoring case) then take user to user page
             else if (response.equalsIgnoreCase("n")) {
