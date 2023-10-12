@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import Tester.Productstore;
+import java.awt.Dimension;
 
 public class User_page extends JFrame implements ActionListener {
 
@@ -56,8 +57,9 @@ public class User_page extends JFrame implements ActionListener {
     public JTable search_list;
     public JTable user_table;
     
-   public JScrollPane user_scroll;
+    public JScrollPane user_scroll;
     public JScrollPane scroll;
+    public JScrollPane search_scroll;
 
      public JLabel searchtext;
     
@@ -126,7 +128,7 @@ public class User_page extends JFrame implements ActionListener {
         enteritemBtn = new JButton("Enter");
         removeBtn = new JButton("Remove");
         
-        this.setSize(500, 500);
+        this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
@@ -179,17 +181,14 @@ public class User_page extends JFrame implements ActionListener {
         
         
         JPanel tablepanel = new JPanel();
-        item_list.setVisible(false);
-        user_table.setVisible(false); 
-//     search_list.setVisible(false);
 
 
-
+        //tablepanel.add(search_scroll);
         tablepanel.add(user_scroll);
         tablepanel.add(scroll);
         scroll.setVisible(false);
         user_scroll.setVisible(false);
-
+        //search_scroll.setVisible(false);
 
         JPanel buttonpanel = new JPanel();
         cancelBtn.setVisible(false);
@@ -263,6 +262,7 @@ public class User_page extends JFrame implements ActionListener {
         this.enteritemBtn.addActionListener(this);
         this.removeitemBtn.addActionListener(this);
         this.removeBtn.addActionListener(this);
+        this.viewcartBtn.addActionListener(this);
     }
 
     
@@ -324,7 +324,10 @@ public class User_page extends JFrame implements ActionListener {
         item_list.getColumnModel().getColumn(0).setPreferredWidth(210);
         item_list.getColumnModel().getColumn(1).setPreferredWidth(190);
         item_list.getColumnModel().getColumn(4).setPreferredWidth(90);
+        
+        
         scroll = new JScrollPane(item_list);
+        scroll.setPreferredSize(new Dimension(490, 165));
         item_list.setEnabled(false);
     }
 
@@ -332,32 +335,55 @@ public class User_page extends JFrame implements ActionListener {
     public void UserItemTable() {
 
         DefaultTableModel model = new DefaultTableModel();
-        String[] columnNames = {"Name", "Price", "Quantity"};
 
-        model.addRow(columnNames);
         model.addColumn("Name");
         model.addColumn("Price");
         model.addColumn("Quantity");
+        
         user_table = new JTable(model);
-
-        user_table.setSize(1000, 1000);
         
         ArrayList<String> user_items = a.getShopping_list();
         ArrayList<Product> list = pgs.getInventory();
+        ArrayList<Double> prices = new ArrayList<Double>();
+        ArrayList<Integer> quantity = new ArrayList<Integer>();
         
+        for(Product p: list)
+        {
+            for(String name : user_items)
+            {
+                String[] split = name.split("X");
+                name = split[0];
+                int amount = Integer.parseInt(split[1]);
+                        
+                if(name.trim().equals(p.getName().trim()))
+                {
+                    double price = p.getPrice();
+                    
+                    double multiply = price * amount;
+                    prices.add(multiply);
+                    quantity.add(amount);
+                }
+            }    
+        }
+        
+        System.out.println("Price list: "+prices.size());
+        System.out.println("user list: "+user_items.size());
+        System.out.println("inventory list: "+list.size());
+        System.out.println("quantity list: "+quantity.size());
         
         Object rowData[] = new Object[5];
-
-        for (int i = 0; i < list.size(); i++) {
-            rowData[0] = list.get(i).getName();
-            rowData[1] = list.get(i).getPrice();
-            rowData[2] = list.get(i).getCategory();
+        for (int i = 0; i < user_items.size(); i++) {
+            rowData[0] = user_items.get(i);
+            rowData[1] = prices.get(i);
+            rowData[2] = quantity.get(i);
             model.addRow(rowData);
 
         }
 
               
         this.user_scroll = new JScrollPane(user_table);
+
+        user_scroll.setPreferredSize(new Dimension(490, 165));
         user_table.setEnabled(false);         
     }
 
@@ -375,10 +401,9 @@ public class User_page extends JFrame implements ActionListener {
             viewcartBtn.setEnabled(false);
             payBtn.setEnabled(false);
 
-            item_list.setVisible(true);
+            
             cancelBtn.setVisible(true);
             scroll.setVisible(true);
-
         }
 
         if (e.getSource() == this.rateBtn) {
@@ -409,7 +434,7 @@ public class User_page extends JFrame implements ActionListener {
             viewcartBtn.setEnabled(true);
             payBtn.setEnabled(true);
 
-            item_list.setVisible(false);
+            scroll.setVisible(false);
             enterrateBtn.setVisible(false);
             cancelBtn.setVisible(false);
             productfield.setVisible(false);
@@ -537,8 +562,6 @@ public class User_page extends JFrame implements ActionListener {
             
             removeBtn.setVisible(false);
             searchfield.setVisible(false);
-            user_table.setVisible(false);
-            item_list.setVisible(false);
             cancelBtn.setVisible(false);
             enterrateBtn.setVisible(false);
             productfield.setVisible(false);
@@ -577,6 +600,8 @@ public class User_page extends JFrame implements ActionListener {
             
         }
         
+        
+        
         if(e.getSource() == this.enteritemBtn)
         {
             
@@ -599,8 +624,6 @@ public class User_page extends JFrame implements ActionListener {
             
             
             searchfield.setVisible(false);
-            user_table.setVisible(false);
-            item_list.setVisible(false);
             cancelBtn.setVisible(false);
             enterrateBtn.setVisible(false);
             enteritemBtn.setVisible(false);
