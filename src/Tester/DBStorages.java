@@ -167,13 +167,20 @@ public class DBStorages {
     public void updateAccount(Accounts a)
     {
         try{
-            
+           
+            if(a.getShopping_list().isEmpty())
+            {
+                this.statement.addBatch("UPDATE ACCOUNT SET Shopping_list = NULL WHERE Email = '"+a.getEmail()+"'");
+                this.statement.executeBatch();  
+            }
+            else{
                 String list = "";
                 for (String t : a.getShopping_list()) {
-                    list += t+", ";
+                list += t+", ";
                 }
-            this.statement.addBatch("UPDATE ACCOUNT SET Shopping_list = '"+list+"' WHERE Email = '"+a.getEmail()+"'");
-            this.statement.executeBatch();    
+                this.statement.addBatch("UPDATE ACCOUNT SET Shopping_list = '"+list+"' WHERE Email = '"+a.getEmail()+"'");
+                this.statement.executeBatch();
+            }
         }
         
        catch(SQLException ex)

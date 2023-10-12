@@ -154,7 +154,70 @@ public class Accountstore {
     }
 
 
+public void deletion(Accounts a,String product) 
+{
+    ArrayList<String> user_shop = a.getShopping_list(); 
+    boolean exist = false;
+   int index = 0;
     
+    for(String items :user_shop)
+   {
+       String[] separate = items.split("X");
+       String clear = separate[0];
+       System.out.println(clear+":"+product);
+       if(clear.equals(product))
+       {
+            exist =true;
+            index = user_shop.indexOf(items);
+            System.out.println(index);
+       }
+   }
+    
+    if(exist ==true)
+   {
+     System.out.println("HERE");
+     String wanted_item = user_shop.get(index);
+     
+     String[] separate = wanted_item.split("X");
+     String stringnumber = separate[1];
+     user_shop.remove(index);
+     
+     int change_value = Integer.parseInt(stringnumber);
+     if(change_value == 1)
+     {
+         user_shop.remove(index);
+         a.setShopping_list(user_shop);
+         SQL.updateAccount(a);
+     }
+     
+     if(a.getShopping_list().isEmpty())
+     {
+         System.out.println("Cart is empty");
+         ArrayList<String> new_shoplist = new ArrayList<String>();
+         a.setShopping_list(new_shoplist);
+         
+         a.setShopping_list(new_shoplist);
+         SQL.updateAccount(a);
+         
+     }
+     
+     
+     else
+     {
+        String convert = String.valueOf(change_value -1);
+        String hash = product;
+        hash +="X".trim();
+        hash += convert;     
+        user_shop.add(hash);
+        a.setShopping_list(user_shop);
+        SQL.updateAccount(a);
+     
+     }
+
+   }
+    
+    
+}    
 
     
     
