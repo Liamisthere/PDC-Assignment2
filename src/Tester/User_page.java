@@ -61,8 +61,8 @@ public class User_page extends JFrame implements ActionListener {
     public JScrollPane scroll;
     public JScrollPane search_scroll;
 
-     public JLabel searchtext;
-    
+    public JLabel searchtext;
+    public JLabel emptylist;
     
     Accountstore astore;
     Accounts a;
@@ -109,7 +109,7 @@ public class User_page extends JFrame implements ActionListener {
         }
         
         searchtext = new JLabel("Enter keywords:");
-        
+        emptylist = new JLabel("Functions are restricted due to list being empty");
         
         searchfield = new JTextField(20);
         exitBtn = new JButton("Exit");
@@ -128,9 +128,28 @@ public class User_page extends JFrame implements ActionListener {
         enteritemBtn = new JButton("Enter");
         removeBtn = new JButton("Remove");
         
+        
+        
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        
+        
+        
+        if(a.getShopping_list().isEmpty())
+        {
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            emptylist.setVisible(true);
+        }
+        else
+        {
+            removeitemBtn.setEnabled(true);
+            viewcartBtn.setEnabled(true);
+            emptylist.setVisible(false);
+        }
+        
+        
     }
 
     public void intitPanels() {
@@ -178,7 +197,8 @@ public class User_page extends JFrame implements ActionListener {
         payBtn.setVisible(true);
         paypanel.add(payBtn);
         
-        
+        JPanel messagepanel = new JPanel();
+        messagepanel.add(emptylist);
         
         JPanel tablepanel = new JPanel();
 
@@ -207,6 +227,7 @@ public class User_page extends JFrame implements ActionListener {
         centerPanel.add(searchlistpanel);
         centerPanel.add(removeitempanel);
         centerPanel.add(paypanel);
+        centerPanel.add(messagepanel);
 
         JPanel fieldpanel = new JPanel();
         searchtext.setVisible(false);
@@ -329,6 +350,7 @@ public class User_page extends JFrame implements ActionListener {
         scroll = new JScrollPane(item_list);
         scroll.setPreferredSize(new Dimension(490, 165));
         item_list.setEnabled(false);
+        
     }
 
     
@@ -575,7 +597,7 @@ public class User_page extends JFrame implements ActionListener {
             scroll.setVisible(false);
             user_scroll.setVisible(false);
             usershoplist.setVisible(false);
-            
+       
             
 
         }
@@ -644,6 +666,21 @@ public class User_page extends JFrame implements ActionListener {
 
             Menu cf = new Menu(astore);
             cf.setVisible(true);
+        }
+        
+        
+        if(a.getShopping_list().isEmpty())
+        {
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            emptylist.setVisible(true);
+        }
+        
+        if(!a.getShopping_list().isEmpty())
+        {
+            removeitemBtn.setEnabled(true);
+            viewcartBtn.setEnabled(true);
+            emptylist.setVisible(false);
         }
 
     }

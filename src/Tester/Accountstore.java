@@ -180,15 +180,29 @@ public void deletion(Accounts a,String product)
      
      String[] separate = wanted_item.split("X");
      String stringnumber = separate[1];
-     user_shop.remove(index);
      
+
      int change_value = Integer.parseInt(stringnumber);
      if(change_value == 1)
      {
-         user_shop.remove(index);
-         a.setShopping_list(user_shop);
-         SQL.updateAccount(a);
+         if(a.getShopping_list().isEmpty())
+         {
+            System.out.println("list size: "+a.getShopping_list().size());
+            ArrayList<String> new_shoplist = new ArrayList<String>();
+            a.setShopping_list(new_shoplist);
+            a.setShopping_list(new_shoplist);
+            SQL.updateAccount(a);
+         
+         }
+         else{
+            System.out.println(index);
+            user_shop.remove(index);
+            a.setShopping_list(user_shop);
+            SQL.updateAccount(a);
+         
+         }
      }
+     
      
      if(a.getShopping_list().isEmpty())
      {
@@ -204,6 +218,7 @@ public void deletion(Accounts a,String product)
      
      else
      {
+        user_shop.remove(index);
         String convert = String.valueOf(change_value -1);
         String hash = product;
         hash +="X".trim();
