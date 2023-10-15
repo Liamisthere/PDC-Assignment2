@@ -216,10 +216,19 @@ public void deletion(Accounts a,String product)
      }
      
      
+     else if(change_value == 0)
+     {
+         user_shop.remove(index);
+     }
+     
+     
      else
      {
-        user_shop.remove(index);
-        String convert = String.valueOf(change_value -1);
+        
+        //user_shop.remove(index);
+        //System.out.println(user_shop.get(index));
+         
+         String convert = String.valueOf(change_value -1);
         String hash = product;
         hash +="X".trim();
         hash += convert;     
