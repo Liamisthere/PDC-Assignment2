@@ -5,7 +5,6 @@
 package Tester;
 
 import static Tester.Accounts.*;
-import static Tester.User_interfaces.*;
 import java.util.*;
 
 /**

@@ -86,11 +86,12 @@ public class DBStorages {
         if(!this.checkExistedTable("INVENTORY"))
         {
             try{
-                this.statement.addBatch("CREATE TABLE INVENTORY (Product_name VARCHAR(255), Company VARCHAR(255), Price FLOAT(24),  Rating FLOAT(24), Categories VARCHAR(255))");
+                this.statement.addBatch("CREATE TABLE INVENTORY (Product_ID INT,Product_name VARCHAR(255), Company VARCHAR(255), Price FLOAT(24),  Rating FLOAT(24), Categories VARCHAR(255))");
                
             
             ArrayList<Product> list =  Productlist();
             
+            int count = 0;
             for(Product p : list)
             {
                 String name = p.getName();
@@ -98,8 +99,8 @@ public class DBStorages {
                 double price = p.getPrice();
                 double rating = p.getRating();
                 String category = p.getCategory();
-                
-                this.statement.addBatch("INSERT INTO INVENTORY VALUES ('" + name +" ', '"+ company +"', "+ price+", "+rating+", '"+category+" ')");
+                count++;
+                this.statement.addBatch("INSERT INTO INVENTORY VALUES ("+count+",'" + name +" ', '"+ company +"', "+ price+", "+rating+", '"+category+" ')");
             }
                 
                 
@@ -197,7 +198,7 @@ public class DBStorages {
             
             float convert = (float) p.getRating();
             
-            this.statement.addBatch("UPDATE INVENTORY SET Rating = '"+convert+"' WHERE PRODUCT_NAME = '"+p.getName()+"'");
+            this.statement.addBatch("UPDATE INVENTORY SET Rating = '"+convert+"' WHERE PRODUCT_ID = "+p.getProductID()+"");
             this.statement.executeBatch();    
         }
         
@@ -272,6 +273,7 @@ public class DBStorages {
           
        while(rs.next())
        {
+           int product_id = rs.getInt("Product_ID");
            String name = rs.getString("PRODUCT_NAME");
            String company = rs.getString("COMPANY");
            double price = rs.getDouble("PRICE");
@@ -279,6 +281,7 @@ public class DBStorages {
            String category  = rs.getString("CATEGORIES");           
            
            Product pd = new Product(name, company, price, rating, category);
+           pd.setProductID(product_id);
            
            collect.add(pd);
       }

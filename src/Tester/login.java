@@ -21,8 +21,12 @@ public class login extends JFrame implements ActionListener{
     public JLabel emailwarn;
     public JLabel passwordwarn;
     
+    public JLabel notexistswarn;
+    
     public JPanel Emailpanel;
     public JPanel Passwordpanel;
+    
+    public JPanel messagepanel;
     
     public JTextField passwordfield;
     public JTextField emailfield;    
@@ -65,11 +69,14 @@ public class login extends JFrame implements ActionListener{
     // Center Panel 
      Panel centerPanel =  new Panel();  
      
-     JPanel Emailpanel = new JPanel();
-     JPanel Passwordpanel = new JPanel();
+     Emailpanel = new JPanel();
+     Passwordpanel = new JPanel();
+     
+     messagepanel = new JPanel();
      
      centerPanel.add(Emailpanel);
      centerPanel.add(Passwordpanel);
+     centerPanel.add(messagepanel);
      
      JLabel email = new JLabel("Email"); 
      emailwarn = new JLabel("Email field is empty!");
@@ -92,6 +99,10 @@ public class login extends JFrame implements ActionListener{
      Passwordpanel.add(passwordfield);
      Passwordpanel.add(passwordwarn);
      
+     
+     notexistswarn = new JLabel("Invalid! Either email or password is incorrect");
+     messagepanel.add(notexistswarn);
+     notexistswarn.setVisible(false);
      
      this.add(centerPanel, BorderLayout.CENTER);
      
@@ -130,6 +141,7 @@ public class login extends JFrame implements ActionListener{
      {
          System.out.println("Email empty");
          emailwarn.setVisible(true);
+         this.notexistswarn.setVisible(false);
      
      }  
      
@@ -137,14 +149,15 @@ public class login extends JFrame implements ActionListener{
      {
          System.out.println("Password empty");
          passwordwarn.setVisible(true);
-     
+         this.notexistswarn.setVisible(false);
      }
      
      if(e.getSource() == this.submitBtn && this.emailfield.getText().trim().length() > 0 && this.passwordfield.getText().trim().length() > 0)
      {
          
          System.out.println("SUBMIT");
-
+         this.emailwarn.setVisible(false);
+         this.passwordwarn.setVisible(false);
          
          String email = this.emailfield.getText();
          String password = this.passwordfield.getText();
@@ -169,7 +182,7 @@ public class login extends JFrame implements ActionListener{
          
          else
          {
-         
+             this.notexistswarn.setVisible(true);
          
          }
          

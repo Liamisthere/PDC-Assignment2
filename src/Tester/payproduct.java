@@ -67,8 +67,7 @@ public class payproduct {
             } // If user's response it 'n' (ignoring case) then take user to user page
             else if (response.equalsIgnoreCase("n")) {
                 System.out.println("Payment has been cancelled!");
-                User_interfaces ui = new User_interfaces(o);
-                ui.user_Page(a);
+          
             } //Otherwise prompt user with message and carry on with asking for response
             else {
                 System.out.println("Invalid response!\nEnter y for yes or n for no");
