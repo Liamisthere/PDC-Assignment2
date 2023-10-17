@@ -232,19 +232,22 @@ public class DBStorages {
            
            if(shopping_list != null)
            {
-           String[] split = shopping_list.split(", ");
+             String[] split = shopping_list.split(", ");
            
-           for(String item : split)
-           {
-               shop_array.add(item);
+             for(String item : split)
+             {
+                 if(!item.equalsIgnoreCase("NULL"))
+                 {
+                    shop_array.add(item);
+                 }
+                
+             }
            }
-           }
-           
-           
            
            Accounts ac = new Accounts(name, surname, email, age,  password);
+          
            ac.setShopping_list(shop_array);
- 
+           
            collect.add(ac);
       }
      

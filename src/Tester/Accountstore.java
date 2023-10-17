@@ -127,6 +127,7 @@ public class Accountstore {
     public int number_cart(Accounts a) {
         int count = 0;
 
+        
         //Create an ArrayList and assign it to account's shopping list
         ArrayList<String> list = a.getShopping_list();
 
@@ -137,7 +138,7 @@ public class Accountstore {
             count += number;
 
         }
-
+        
         //return count
         return count;
     }
@@ -154,11 +155,11 @@ public class Accountstore {
     }
 
 
-public void deletion(Accounts a,String product) 
+public void deletion(Accounts a,String product, int quantity) 
 {
     ArrayList<String> user_shop = a.getShopping_list(); 
     boolean exist = false;
-   int index = 0;
+    int index = 0;
     
     for(String items :user_shop)
    {
@@ -183,7 +184,10 @@ public void deletion(Accounts a,String product)
      
 
      int change_value = Integer.parseInt(stringnumber);
-     if(change_value == 1)
+     int wanted = change_value - quantity;
+     
+     
+     if(wanted == 0)
      {
          if(a.getShopping_list().isEmpty())
          {
@@ -216,23 +220,17 @@ public void deletion(Accounts a,String product)
      }
      
      
-     else if(change_value == 0)
-     {
-         user_shop.remove(index);
-     }
-     
-     
      else
      {
         
-        //user_shop.remove(index);
+        // user_shop.remove(index);
         //System.out.println(user_shop.get(index));
          
-         String convert = String.valueOf(change_value -1);
+        String convert = String.valueOf(wanted);
         String hash = product;
         hash +="X".trim();
         hash += convert;     
-        user_shop.add(hash);
+        user_shop.set(index , hash);
         a.setShopping_list(user_shop);
         SQL.updateAccount(a);
      
@@ -279,8 +277,7 @@ public void insertion(Accounts a,String product, int quantity)
      hash +="X".trim();
      hash += convert;
      
-     user_shop.remove(index);
-     user_shop.add(hash);
+    user_shop.set(index, hash);
      
     System.out.println(hash);
     a.setShopping_list(user_shop);
