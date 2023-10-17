@@ -86,7 +86,7 @@ public class DBStorages {
         if(!this.checkExistedTable("INVENTORY"))
         {
             try{
-                this.statement.addBatch("CREATE TABLE INVENTORY (Product_ID INT,Product_name VARCHAR(255), Company VARCHAR(255), Price FLOAT(24),  Rating FLOAT(24), Categories VARCHAR(255))");
+                this.statement.addBatch("CREATE TABLE INVENTORY (Product_ID INT,Product_name VARCHAR(255), Company VARCHAR(255), Price FLOAT(24),  Rating DOUBLE, Categories VARCHAR(255))");
                
             
             ArrayList<Product> list =  Productlist();
@@ -196,15 +196,15 @@ public class DBStorages {
     {
         try{
             
-            float convert = (float) p.getRating();
+        
             
-            this.statement.addBatch("UPDATE INVENTORY SET Rating = '"+convert+"' WHERE PRODUCT_ID = "+p.getProductID()+"");
+            this.statement.addBatch("UPDATE INVENTORY SET Rating = "+p.getRating()+" WHERE PRODUCT_ID = "+p.getProductID()+"");
             this.statement.executeBatch();    
         }
         
        catch(SQLException ex)
        {
-           System.out.println(ex.getMessage());
+           System.out.println(ex.getMessage()+"HERE");
        }
     
     }

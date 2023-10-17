@@ -181,65 +181,37 @@ public void deletion(Accounts a,String product, int quantity)
      
      String[] separate = wanted_item.split("X");
      String stringnumber = separate[1];
-     
+     String item = separate[0];
 
      int change_value = Integer.parseInt(stringnumber);
      int wanted = change_value - quantity;
      
      
      if(wanted == 0)
-     {
-         if(a.getShopping_list().isEmpty())
-         {
-            System.out.println("list size: "+a.getShopping_list().size());
-            ArrayList<String> new_shoplist = new ArrayList<String>();
-            a.setShopping_list(new_shoplist);
-            a.setShopping_list(new_shoplist);
-            SQL.updateAccount(a);
-         
-         }
-         else{
-            System.out.println(index);
+     {         
+            System.out.println(index + "first if");
             user_shop.remove(index);
             a.setShopping_list(user_shop);
             SQL.updateAccount(a);
          
-         }
      }
-     
-     
-     if(a.getShopping_list().isEmpty())
-     {
-         System.out.println("Cart is empty");
-         ArrayList<String> new_shoplist = new ArrayList<String>();
-         a.setShopping_list(new_shoplist);
-         
-         a.setShopping_list(new_shoplist);
-         SQL.updateAccount(a);
-         
-     }
-     
      
      else
      {
-        
-        // user_shop.remove(index);
-        //System.out.println(user_shop.get(index));
-         
-        String convert = String.valueOf(wanted);
-        String hash = product;
-        hash +="X".trim();
-        hash += convert;     
-        user_shop.set(index , hash);
-        a.setShopping_list(user_shop);
-        SQL.updateAccount(a);
+            System.out.println(index + "second else");
+            String hash = item+"X"+wanted;
+            
+            user_shop.set(index, hash);
+            a.setShopping_list(user_shop);
+            SQL.updateAccount(a);
+     }
      
      }
-
-   }
+     
+}
     
     
-}    
+    
 
     
     

@@ -80,7 +80,7 @@ public class User_page extends JFrame implements ActionListener {
     Accountstore astore;
     Accounts a;
 
-    DefaultTableModel search_model = new DefaultTableModel();;
+    DefaultTableModel search_model = new DefaultTableModel();
     DefaultTableModel item_model;
     
     DefaultTableModel user_model = new DefaultTableModel();
@@ -335,7 +335,9 @@ public class User_page extends JFrame implements ActionListener {
 
         this.removalnum.addActionListener(this);
         this.rateBtn.addActionListener(this);
+       
         this.searchlistBtn.addActionListener(this);
+        
         this.entersearchBtn.addActionListener(this);
         this.insertitemBtn.addActionListener(this);
         
@@ -363,8 +365,7 @@ public class User_page extends JFrame implements ActionListener {
        search_list = new JTable(search_model);
        
        search_list.setSize(1000, 1000);
-       
-       
+           
     
        
         search_list.getColumnModel().getColumn(0).setPreferredWidth(210);
@@ -380,15 +381,15 @@ public class User_page extends JFrame implements ActionListener {
    {
        this.searchtablepanel.removeAll();
        
-        int row_size = search_model.getRowCount()-1;
-        
+       search_model  = new DefaultTableModel();
+       
+       int row_size = search_model.getRowCount()-1;
         
        
        for(int i = row_size ; i > -1  ; i--)
        {
            search_model.removeRow(i);
        }
-       
        
        search_list = new JTable(search_model);
        
@@ -405,12 +406,16 @@ public class User_page extends JFrame implements ActionListener {
           search_model.addRow(rowData);
        }
        
+        
         search_scroll = new JScrollPane(search_list);
         search_scroll.setPreferredSize(new Dimension(490, 165));
+        searchtablepanel.add(search_scroll);
         search_scroll.setEnabled(false);
+        
+        
         search_list.setVisible(true);
         search_scroll.setVisible(true);
-   
+        searchtablepanel.setVisible(true);
    }
    
     public void item_table() {
@@ -544,11 +549,6 @@ public class User_page extends JFrame implements ActionListener {
             {
                 user_model.removeRow(i);
             }
-       
-        
-        
-        
-    
     
         user_table = new JTable(user_model);
         
