@@ -39,7 +39,7 @@ public class Receipt {
             pw.println(line);
 
             pw.println("Purchased by:" + a.getName() + " " + a.getSurname());
-            pw.println("Email Address:" + a.getEmail() + "\n");
+            pw.println("Email Address: " + a.getEmail() + "\n");
 
             //Prints out all the keys and values in Maps
             for (Map.Entry<String, Product> entry : o.entrySet()) {
@@ -55,6 +55,7 @@ public class Receipt {
             pw.println("\nCreated by Liam Naidoo");
             pw.close();
         } //catches FileNotFoundException error and sents a message about it insted
+        
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         }

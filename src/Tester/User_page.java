@@ -13,7 +13,7 @@ import java.awt.Dimension;
 
 public class User_page extends JFrame implements ActionListener {
 
-    private Productstore pgs = new Productstore();
+    
     public JButton exitBtn;
     public JButton itemlistBtn;
     public JButton insertitemBtn;
@@ -34,6 +34,9 @@ public class User_page extends JFrame implements ActionListener {
     
     public JButton removalnum;
     public JButton cancelremoval;
+    
+    public JButton enterpay;
+    public JButton cancelpay;
     
     public JPanel paypanel;
     public JPanel itemlistpanel;
@@ -56,6 +59,9 @@ public class User_page extends JFrame implements ActionListener {
     public JPanel buttonpanel;
     public JPanel copyrightpanel;
     public JPanel insertpanel;
+    
+    public JPanel paymessagepanel;
+    public JPanel paybuttonpanel;
 
     public JTextField searchfield;
 
@@ -81,10 +87,14 @@ public class User_page extends JFrame implements ActionListener {
     public JLabel emptylist;
     public JLabel cartsize;
     public JLabel searchwarn;
+    public JLabel paytext;
+    public JLabel payquestion;
+    
     
     
     Accountstore astore;
     Accounts a;
+    Productstore pgs = new Productstore();
 
     DefaultTableModel search_model = new DefaultTableModel();
     DefaultTableModel item_model;
@@ -165,14 +175,21 @@ public class User_page extends JFrame implements ActionListener {
         cancelremoval = new JButton("Change item");
         
         
+       enterpay = new JButton("Yes");
+       cancelpay = new JButton("No");
+        
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         
+                
+        paytext = new JLabel("That'll be $"+pgs.totalPrice(a, pgs)+",  Are you ready to pay?");
+        paytext.setSize(2, 2);
+        paytext.setVisible(false);
         
-        
-
-        
+        payquestion = new JLabel("");
+        payquestion.setSize(2, 2);
+        payquestion.setVisible(false);
         
         if(a.getShopping_list().isEmpty())
         {
@@ -287,6 +304,13 @@ public class User_page extends JFrame implements ActionListener {
         buttonpanel.add(cancelBtn);
         
         
+        paymessagepanel = new JPanel();
+        paymessagepanel.add(payquestion);
+        
+        paybuttonpanel = new JPanel();
+        paybuttonpanel.add(enterpay);
+        paybuttonpanel.add(cancelpay);
+        
         centerPanel.add(itemlistpanel);
         centerPanel.add(insertpanel);
         
@@ -317,7 +341,7 @@ public class User_page extends JFrame implements ActionListener {
         usershoplist.setVisible(false);
         removefield.setVisible(false);
         removalnum.setVisible(false);
-        
+        paybuttonpanel.setVisible(false);
 
       
         
@@ -342,6 +366,9 @@ public class User_page extends JFrame implements ActionListener {
         centerPanel.add(usertablepanel);   
         centerPanel.add(itemtablepanel); 
         centerPanel.add(searchtablepanel);
+        centerPanel.add(paytext);
+        
+        centerPanel.add(paybuttonpanel);
         
         this.add(centerPanel, BorderLayout.CENTER);
 
@@ -383,6 +410,10 @@ public class User_page extends JFrame implements ActionListener {
         this.removeBtn.addActionListener(this);
         this.viewcartBtn.addActionListener(this);
         this.cancelremoval.addActionListener(this);
+        
+        this.enterpay.addActionListener(this);
+        this.cancelpay.addActionListener(this);
+        this.payBtn.addActionListener(this);
     }
 
     
@@ -489,8 +520,7 @@ public class User_page extends JFrame implements ActionListener {
         scroll.setPreferredSize(new Dimension(490, 165));
         item_list.setEnabled(false);
         
-    }
-    
+    } 
     
     
     public void update_item_table() {
@@ -774,8 +804,6 @@ public class User_page extends JFrame implements ActionListener {
             cancelBtn.setVisible(true);
      }
      
-
-     
      
     if(e.getSource() == entersearchBtn && searchfield.getText().trim().length() > 0)
     {
@@ -917,17 +945,68 @@ public class User_page extends JFrame implements ActionListener {
             sizepanel.add(cartsize);
         
         updateUsertable();
-        
-
-            
-
-        
-        
-                 
+          
      }
+     
+     
+             
+        if(e.getSource() == this.payBtn)
+        {
+            paytext = new JLabel("That'll be $"+pgs.totalPrice(a, pgs)+",  Are you ready to pay?");
+            System.out.println("Paying items");
+            cancelpay.setText("No");
+            updateUsertable();
+            insertitemBtn.setEnabled(false);
+            itemlistBtn.setEnabled(false);
+            searchlistBtn.setEnabled(false);
+            rateBtn.setEnabled(false);
+            payBtn.setEnabled(false);                       
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            
+            paytext.setVisible(true);
+            payquestion.setVisible(true);
+            payquestion.setVisible(true);
+            paymessagepanel.setVisible(true);
+            paybuttonpanel.setVisible(true); 
+        }
+        
+        
+        if(e.getSource() == this.enterpay)
+        {
+            System.out.println("Paying items");
+            payproduct  pay = new payproduct(a, astore, pgs);
+            pay.payment();
+            updateUsertable();
+            cartsize = new JLabel("You currently have "+astore.number_cart(a)+" item in your cart");
+            cancelpay.setText("Exit payment");
+            
+        }
+
+        
+        if(e.getSource() == this.cancelpay)
+        {
+             System.out.println("cancel Payment");
+            
+            insertitemBtn.setEnabled(true);
+            itemlistBtn.setEnabled(true);
+            searchlistBtn.setEnabled(true);
+            rateBtn.setEnabled(true);
+            payBtn.setEnabled(true);
+            removeitemBtn.setEnabled(true);
+            viewcartBtn.setEnabled(true);
+            
+            paytext.setVisible(false);
+            payquestion.setVisible(false);
+            payquestion.setVisible(false);
+            paymessagepanel.setVisible(false);
+            paybuttonpanel.setVisible(false);  
+            user_scroll.setVisible(false);
+        }
      
         if (e.getSource() == this.cancelBtn) {
             cancelBtn.setText("Cancel");
+            
             insertitemBtn.setEnabled(true);
             itemlistBtn.setEnabled(true);
             searchlistBtn.setEnabled(true);
@@ -956,6 +1035,12 @@ public class User_page extends JFrame implements ActionListener {
             removefield.setVisible(false);
             removalnum.setVisible(false);
             entersearch.setVisible(false);
+            
+            paytext.setVisible(false);
+            payquestion.setVisible(false);
+            payquestion.setVisible(false);
+            paymessagepanel.setVisible(false);
+            paybuttonpanel.setVisible(false); 
        
             
 
@@ -1003,6 +1088,7 @@ public class User_page extends JFrame implements ActionListener {
             cartsize = new JLabel("You currently have "+astore.number_cart(a)+" item in your cart");
             sizepanel.add(cartsize);
             cancelBtn.setText("Done");
+            cancelBtn.setVisible(true);
             
         }
         
@@ -1035,10 +1121,19 @@ public class User_page extends JFrame implements ActionListener {
             
         }
         
-        if(e.getSource() == this.cancelBtn && !a.getShopping_list().isEmpty())
+        if(e.getSource() == this.cancelBtn && a.getShopping_list().isEmpty() || e.getSource() == this.cancelpay && a.getShopping_list().isEmpty())
+        {
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            payBtn.setEnabled(false);
+            emptylist.setVisible(true);
+        }
+        
+        if(e.getSource() == this.cancelBtn && !a.getShopping_list().isEmpty() || e.getSource() == this.cancelpay && !a.getShopping_list().isEmpty())
         {
             removeitemBtn.setEnabled(true);
             viewcartBtn.setEnabled(true);
+            payBtn.setEnabled(true);
             emptylist.setVisible(false);
         }
         
@@ -1048,14 +1143,20 @@ public class User_page extends JFrame implements ActionListener {
             
             removeitemBtn.setEnabled(false);
             viewcartBtn.setEnabled(false);
+            payBtn.setEnabled(false);
             
             insertitemBtn.setEnabled(true);
             itemlistBtn.setEnabled(true);
             searchlistBtn.setEnabled(true);
             rateBtn.setEnabled(true);
-            payBtn.setEnabled(true);
                 
         }
+        
+        
+        
+        
+
+                
         
         
 

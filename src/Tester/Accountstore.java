@@ -26,7 +26,6 @@ public class Accountstore {
     private ArrayList<Accounts> storage;
 
     private Statement statement;
-    
     private DBStorages SQL = new DBStorages();
 
     //Default Constructor that assign this.storage as a new ArrayList for Accounts
