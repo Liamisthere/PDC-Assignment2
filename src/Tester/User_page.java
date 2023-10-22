@@ -114,7 +114,7 @@ public class User_page extends JFrame implements ActionListener {
 
         ratefield = new JComboBox();
 
-        for (double i = 0; i < 5; i += 0.25) {
+        for (double i = 0; i < 5.25; i += 0.25) {
             this.ratefield.addItem(i);
         }
 
@@ -155,7 +155,7 @@ public class User_page extends JFrame implements ActionListener {
         viewcartBtn = new JButton("View cart");
         payBtn = new JButton("Pay now");
         cancelBtn = new JButton("Cancel");
-        removalnum = new JButton("Selct item");
+        removalnum = new JButton("Select item");
         enterrateBtn = new JButton("Enter");
         entersearchBtn = new JButton("Enter"); 
         entersearch = new JButton("Add item"); 
@@ -490,6 +490,53 @@ public class User_page extends JFrame implements ActionListener {
         item_list.setEnabled(false);
         
     }
+    
+    
+    
+    public void update_item_table() {
+        this.itemtablepanel.removeAll();
+        
+        DefaultTableModel item_model = new DefaultTableModel();
+
+        item_model.addColumn("Name");
+        item_model.addColumn("Company");
+        item_model.addColumn("Rating");
+        item_model.addColumn("Price");
+        item_model.addColumn("Category");
+
+        item_list = new JTable(item_model);
+        
+        item_list.setSize(200, 200);
+        ArrayList<Product> list = pgs.getInventory();
+        Object rowData[] = new Object[5];
+
+        for (int i = 0; i < list.size(); i++) {
+            rowData[0] = list.get(i).getName();
+            rowData[1] = list.get(i).getCompany();
+            rowData[2] = list.get(i).getRating();
+            rowData[3] = list.get(i).getPrice();
+            rowData[4] = list.get(i).getCategory();
+            item_model.addRow(rowData);
+        }
+        
+     
+        item_list.getColumnModel().getColumn(0).setPreferredWidth(210);
+        item_list.getColumnModel().getColumn(1).setPreferredWidth(190);
+        item_list.getColumnModel().getColumn(4).setPreferredWidth(90);
+       
+        
+        scroll = new JScrollPane(item_list);
+        scroll.setPreferredSize(new Dimension(490, 165));
+        item_list.setEnabled(false);
+        
+        itemtablepanel.add(scroll);
+        System.out.println("Here");
+        
+        
+    }
+    
+    
+    
 
     
     public void UserItemTable() {       
@@ -677,19 +724,6 @@ public class User_page extends JFrame implements ActionListener {
             scroll.setVisible(true);
         }
         if (e.getSource() == this.enterrateBtn) {
-            insertitemBtn.setEnabled(true);
-            itemlistBtn.setEnabled(true);
-            searchlistBtn.setEnabled(true);
-            rateBtn.setEnabled(true);
-            removeitemBtn.setEnabled(true);
-            viewcartBtn.setEnabled(true);
-            payBtn.setEnabled(true);
-
-            scroll.setVisible(false);
-            enterrateBtn.setVisible(false);
-            cancelBtn.setVisible(false);
-            productfield.setVisible(false);
-            ratefield.setVisible(false);
 
             System.out.println("Rating has been done");
 
@@ -698,6 +732,8 @@ public class User_page extends JFrame implements ActionListener {
 
             pgs.ratedProduct(product_name, rate);
 
+            update_item_table();
+            
             System.out.println(pgs.getInventory());
 
         }
@@ -798,6 +834,9 @@ public class User_page extends JFrame implements ActionListener {
         viewcartBtn.setEnabled(false);
         payBtn.setEnabled(false);
         
+        usershoplist.enable(true);
+        
+        
         user_scroll.setVisible(true);
         removalnum.setVisible(true);
         cancelBtn.setVisible(true);
@@ -808,10 +847,12 @@ public class User_page extends JFrame implements ActionListener {
     if(e.getSource() == cancelremoval)
     {
         usershoplist.enable(true);
-        removalnum.setVisible(true);
         
+        removalnum.setVisible(true);
         removefield.setVisible(false);
         removeBtn.setVisible(false);
+        cancelremoval.setVisible(false);
+        
         
     }
     
@@ -846,7 +887,8 @@ public class User_page extends JFrame implements ActionListener {
         
         removeBtn.setVisible(true);
         removefield.setVisible(true);
-        removalnum.setVisible(true);
+        
+        removalnum.setVisible(false);
         
      
      }
@@ -858,7 +900,7 @@ public class User_page extends JFrame implements ActionListener {
         removefield.setVisible(false);
         removeBtn.setVisible(false);
         cancelremoval.setVisible(false);
-        
+        removalnum.setVisible(true);
         usershoplist.enable(true);
         
         
@@ -953,39 +995,15 @@ public class User_page extends JFrame implements ActionListener {
             astore.insertion(a,product_name, quantity);
             System.out.println(a.Shop_listed());
             
-            insertitemBtn.setEnabled(true);
-            itemlistBtn.setEnabled(true);
-            searchlistBtn.setEnabled(true);
-            rateBtn.setEnabled(true);
-            removeitemBtn.setEnabled(true);
-            viewcartBtn.setEnabled(true);
-            payBtn.setEnabled(true);
-            
-            emptylist.setVisible(false);           
-            searchfield.setVisible(false);
-            cancelBtn.setVisible(false);
-            entersearch.setVisible(false);
-            searchproductfield.setVisible(false);
-            enterrateBtn.setVisible(false);
-            enteritemBtn.setVisible(false);
-            productfield.setVisible(false);
-            ratefield.setVisible(false);
-            searchfield.setVisible(false);
-            searchtext.setVisible(false);
-            entersearchBtn.setVisible(false);
-            quantityfield.setVisible(false);
-            search_list.setVisible(false);  
-             
-            scroll.setVisible(false);
-            
             
             updateUsertable();
             user_scroll.setVisible(false);
-
             
             sizepanel.removeAll();
             cartsize = new JLabel("You currently have "+astore.number_cart(a)+" item in your cart");
             sizepanel.add(cartsize);
+            cancelBtn.setText("Done");
+            
         }
         
         if (e.getSource() == this.exitBtn) {
@@ -1001,6 +1019,9 @@ public class User_page extends JFrame implements ActionListener {
         {
             removeitemBtn.setEnabled(false);
             viewcartBtn.setEnabled(false);
+            
+            
+            
             emptylist.setVisible(true);
             
             cancelremoval.setVisible(false);
@@ -1012,8 +1033,6 @@ public class User_page extends JFrame implements ActionListener {
             removefield.setVisible(false);
             cancelBtn.setText("Cancel");
             
-            
-            
         }
         
         if(e.getSource() == this.cancelBtn && !a.getShopping_list().isEmpty())
@@ -1021,10 +1040,24 @@ public class User_page extends JFrame implements ActionListener {
             removeitemBtn.setEnabled(true);
             viewcartBtn.setEnabled(true);
             emptylist.setVisible(false);
-            
-            
-
         }
+        
+        
+        if(e.getSource() == removeBtn && a.getShopping_list().isEmpty())
+        {
+            
+            removeitemBtn.setEnabled(false);
+            viewcartBtn.setEnabled(false);
+            
+            insertitemBtn.setEnabled(true);
+            itemlistBtn.setEnabled(true);
+            searchlistBtn.setEnabled(true);
+            rateBtn.setEnabled(true);
+            payBtn.setEnabled(true);
+                
+        }
+        
+        
 
     }
 
