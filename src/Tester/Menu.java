@@ -40,6 +40,7 @@ public class Menu extends JFrame implements ActionListener{
      this.setSize(400, 400);
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      this.setLocationRelativeTo(null);
+     this.setTitle("Menu page");
     }
      
    public void intitPanels()

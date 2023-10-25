@@ -77,6 +77,7 @@ public class Enrol extends JFrame implements ActionListener {
         this.setSize(500, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        this.setTitle("Enrol page");
     }
 
     public void intitPanels() {

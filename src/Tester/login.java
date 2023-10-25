@@ -53,6 +53,7 @@ public class login extends JFrame implements ActionListener{
      this.setSize(500, 400);
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      this.setLocationRelativeTo(null);
+     this.setTitle("Login page");
     }
      
    public void intitPanels()
