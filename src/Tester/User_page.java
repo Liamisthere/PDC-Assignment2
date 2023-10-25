@@ -1,6 +1,5 @@
 package Tester;
 
-import Tester.Panel;
 import java.util.*;
 import java.io.*;
 import java.awt.Font;
@@ -48,6 +47,7 @@ public class User_page extends JFrame implements ActionListener {
     public JPanel searchfunctions;
 
     public JPanel messagepanel;
+    public JPanel instructpanel;
     public JPanel sizepanel;
     
     public JPanel itemtablepanel;
@@ -90,6 +90,7 @@ public class User_page extends JFrame implements ActionListener {
     public JLabel paytext;
     public JLabel payquestion;
     
+    public JLabel messagetext;
     
     
     Accountstore astore;
@@ -173,7 +174,7 @@ public class User_page extends JFrame implements ActionListener {
         enteritemBtn = new JButton("Enter");
         removeBtn = new JButton("Remove");
         cancelremoval = new JButton("Change item");
-        
+        messagetext = new JLabel("I'm a message");
         
        enterpay = new JButton("Yes");
        cancelpay = new JButton("No");
@@ -212,7 +213,7 @@ public class User_page extends JFrame implements ActionListener {
             removeitemBtn.setEnabled(true);
             viewcartBtn.setEnabled(true);
             emptylist.setVisible(false);
-            cartsize = new JLabel("You have currently "+astore.number_cart(a)+" items in your cart");
+            cartsize = new JLabel("You currently have"+astore.number_cart(a)+" items in your cart");
         }
         
         
@@ -227,7 +228,7 @@ public class User_page extends JFrame implements ActionListener {
         this.add(northPanel, BorderLayout.NORTH);
 
         // Center Panel 
-        Panel centerPanel = new Panel();
+        JPanel centerPanel = new JPanel();
 
         itemlistpanel = new JPanel();
         itemlistBtn.setVisible(true);
@@ -282,7 +283,10 @@ public class User_page extends JFrame implements ActionListener {
         searchfunctions.add(entersearchBtn);
         
         
+        instructpanel = new JPanel();
         
+        instructpanel.add(messagetext);
+        messagetext.setVisible(false);
         
         usertablepanel = new JPanel();
         itemtablepanel = new JPanel();
@@ -324,7 +328,9 @@ public class User_page extends JFrame implements ActionListener {
         
         centerPanel.add(searchlistpanel);
         centerPanel.add(paypanel);
+        
         centerPanel.add(sizepanel);
+        centerPanel.add(instructpanel);
         centerPanel.add(messagepanel);
         centerPanel.add(searchfunctions);
         
@@ -721,7 +727,7 @@ public class User_page extends JFrame implements ActionListener {
 
         if (e.getSource() == this.itemlistBtn) {
             System.out.println("Display item_list");
-
+            
             insertitemBtn.setEnabled(false);
             itemlistBtn.setEnabled(false);
             searchlistBtn.setEnabled(false);
@@ -733,9 +739,15 @@ public class User_page extends JFrame implements ActionListener {
             
             cancelBtn.setVisible(true);
             scroll.setVisible(true);
+            
+            emptylist.setVisible(false);
         }
 
         if (e.getSource() == this.rateBtn) {
+            
+            messagetext.setText("Select Item and Rating and press enter for to confirm rating");
+            
+            messagetext.setVisible(true);
             System.out.println("Rate an item");
 
             insertitemBtn.setEnabled(false);
@@ -753,6 +765,8 @@ public class User_page extends JFrame implements ActionListener {
             productfield.setVisible(true);
             ratefield.setVisible(true);
             scroll.setVisible(true);
+            
+            emptylist.setVisible(false);
         }
         if (e.getSource() == this.enterrateBtn) {
 
@@ -782,6 +796,8 @@ public class User_page extends JFrame implements ActionListener {
 
             user_scroll.setVisible(true);
             cancelBtn.setVisible(true);
+            
+            emptylist.setVisible(false);
 
         }
 
@@ -803,6 +819,8 @@ public class User_page extends JFrame implements ActionListener {
             entersearchBtn.setVisible(true);
             search_scroll.setVisible(true);
             cancelBtn.setVisible(true);
+            
+            emptylist.setVisible(false);
      }
      
      
@@ -819,7 +837,7 @@ public class User_page extends JFrame implements ActionListener {
              else
              {
                 System.out.println(searched); 
-              
+                searchwarn.setVisible(false);
                 update_searchtable(searched);
                 search_scroll.setVisible(true);
                 
@@ -870,6 +888,8 @@ public class User_page extends JFrame implements ActionListener {
         removalnum.setVisible(true);
         cancelBtn.setVisible(true);
         usershoplist.setVisible(true);
+        
+        emptylist.setVisible(false);
     } 
     
     
@@ -924,7 +944,7 @@ public class User_page extends JFrame implements ActionListener {
      
      if(e.getSource() == removeBtn)
      {
-         
+        
         String removal =  usershoplist.getSelectedItem().toString();
         removefield.setVisible(false);
         removeBtn.setVisible(false);
@@ -1010,6 +1030,8 @@ public class User_page extends JFrame implements ActionListener {
      
         if (e.getSource() == this.cancelBtn) {
             cancelBtn.setText("Cancel");
+            messagetext.setText("Message isn't in use");
+            
             
             insertitemBtn.setEnabled(true);
             itemlistBtn.setEnabled(true);
@@ -1019,6 +1041,7 @@ public class User_page extends JFrame implements ActionListener {
             viewcartBtn.setEnabled(true);
             payBtn.setEnabled(true);
             
+            searchwarn.setVisible(false);
             cancelremoval.setVisible(false);
             removeBtn.setVisible(false);
             searchfield.setVisible(false);
@@ -1045,6 +1068,7 @@ public class User_page extends JFrame implements ActionListener {
             payquestion.setVisible(false);
             paymessagepanel.setVisible(false);
             paybuttonpanel.setVisible(false); 
+            messagetext.setVisible(false); 
        
             
 
@@ -1105,15 +1129,16 @@ public class User_page extends JFrame implements ActionListener {
             cf.setVisible(true);
         }
         
+        if(e.getSource() == cancelBtn && a.getShopping_list().isEmpty())
+        { 
+        
+            emptylist.setVisible(true);
+        }
         
         if(a.getShopping_list().isEmpty())
         {
 
             cartsize = new JLabel("You currently have "+astore.number_cart(a)+" item in your cart");
-   
-            emptylist.setVisible(true);
-        
-            
             removeitemBtn.setEnabled(false);
             viewcartBtn.setEnabled(false);
             payBtn.setEnabled(false);
@@ -1122,7 +1147,6 @@ public class User_page extends JFrame implements ActionListener {
             usershoplist.setEnabled(false);
             removeBtn.setEnabled(false);
             removefield.setEnabled(false);
-            
             cancelBtn.setText("Cancel"); 
         }
         

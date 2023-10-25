@@ -1,6 +1,5 @@
 package Tester;
 
-import Tester.Panel;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.BorderLayout;
@@ -54,7 +53,7 @@ public class Menu extends JFrame implements ActionListener{
      
      
     // Center Panel 
-     Panel centerPanel =  new Panel();
+     JPanel centerPanel =  new JPanel();
      centerPanel.add(loginBtn);
      centerPanel.add(enrolBtn);
      this.add(centerPanel, BorderLayout.CENTER);

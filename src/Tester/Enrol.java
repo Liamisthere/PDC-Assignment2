@@ -1,6 +1,5 @@
 package Tester;
 
-import Tester.Panel;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.BorderLayout;
@@ -84,7 +83,7 @@ public class Enrol extends JFrame implements ActionListener {
         this.add(northPanel, BorderLayout.NORTH);
 
         // Center Panel 
-        Panel centerPanel = new Panel();
+        JPanel centerPanel = new JPanel();
         
         JPanel Namepanel = new JPanel();
         JPanel Surnamepanel = new JPanel();

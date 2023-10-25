@@ -1,7 +1,6 @@
 package Tester;
 
 import Tester.Access;
-import Tester.Panel;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.BorderLayout;
@@ -67,7 +66,7 @@ public class login extends JFrame implements ActionListener{
      
      
     // Center Panel 
-     Panel centerPanel =  new Panel();  
+     JPanel centerPanel =  new JPanel();  
      
      Emailpanel = new JPanel();
      Passwordpanel = new JPanel();
