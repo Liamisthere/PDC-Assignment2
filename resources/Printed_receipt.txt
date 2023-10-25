@@ -3,10 +3,10 @@ Shopping App
 Purchased by:Liam  Naidoo
 Email Address: Liam@butter.co.nz
 
-Magic 8 ball X5 - Magic 8 ball , Novelty.com, 60.0, 5.0, Novelty 
+Blue ball point pen X1 - Blue ball point pen , Warehouse Stationary, 2.0, 1.75, Stationary 
 
-Balance due: $60.0
+Balance due: $2.0
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-Date of transaction: Wed Oct 25 14:13:29 NZDT 2023
+Date of transaction: Wed Oct 25 16:23:43 NZDT 2023
 
 Created by Liam Naidoo

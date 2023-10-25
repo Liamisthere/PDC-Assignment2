@@ -33,6 +33,11 @@ public class Enrol extends JFrame implements ActionListener {
     public JLabel agewarn;
     public JLabel emailwarn;
     public JLabel emailexist;
+    
+    public JLabel surnamelimit;
+    public JLabel namelimit;
+    
+    
 
     public JLabel passwordwarn;
 
@@ -103,22 +108,28 @@ public class Enrol extends JFrame implements ActionListener {
         
         JLabel name = new JLabel("Name:");
         namewarn = new JLabel("Name field is empty!");
+        namelimit = new JLabel("Name must be all letters!");
         namewarn.setVisible(false);
-
+        namelimit.setVisible(false);
+        
         Namepanel.add(name);
         
+        Namepanel.add(namelimit);
         Namepanel.add(namefield);
         Namepanel.add(namewarn);
         
         JLabel surname = new JLabel("\nSurame:");
 
         surnamewarn = new JLabel("Surname field is empty!");
-
+        surnamelimit = new JLabel("Surname must be all letters!");
+        
         surname.setVisible(true);
         surnamewarn.setVisible(false);
-
+        surnamelimit.setVisible(false);
+        
         Surnamepanel.add(surname);
         Surnamepanel.add(surnamewarn);
+        Surnamepanel.add(surnamelimit);
         Surnamepanel.add(surnamefield);
 
         JLabel age = new JLabel("Age:");
@@ -190,8 +201,17 @@ public class Enrol extends JFrame implements ActionListener {
             System.out.println("Name empty");
             namewarn.setVisible(true);
         }
+        
+        else if(e.getSource() == this.submitBtn && this.namefield.getText().trim().length() > 0 && o.validname(namefield.getText()) == false)
+        {
+            System.out.println("name limit");
+            namewarn.setVisible(false);
+            namelimit.setVisible(true);
+        }       
+        
         else if (e.getSource() == this.submitBtn && this.namefield.getText().trim().length() > 0) {
             namewarn.setVisible(false);
+            namelimit.setVisible(false);
         }
         
 
@@ -199,8 +219,18 @@ public class Enrol extends JFrame implements ActionListener {
             System.out.println("Surname empty");
             surnamewarn.setVisible(true);
         }
-         else if (e.getSource() == this.submitBtn && this.surnamefield.getText().trim().length() > 0) {
+        
+        else if(e.getSource() == this.submitBtn && this.surnamefield.getText().trim().length() > 0 && o.validname(surnamefield.getText()) == false)
+        {
+            System.out.println("Surname limit");
             surnamewarn.setVisible(false);
+            surnamelimit.setVisible(true);
+        }
+        
+        else if (e.getSource() == this.submitBtn && this.surnamefield.getText().trim().length() > 0) {
+             surnamewarn.setVisible(false);
+             surnamelimit.setVisible(false);
+             
         } 
         
         
@@ -231,7 +261,8 @@ public class Enrol extends JFrame implements ActionListener {
                emailwarn.setVisible(false);
                passwordwarn.setVisible(false);
                
-            if (this.emailfield.getText().contains("@") && this.emailfield.getText().trim().length() >= 6 && o.validpassword(this.passwordfield.getText().trim())) {
+               
+            if(o.validname(this.namefield.getText().trim()) &&  o.validname(this.surnamefield.getText().trim()) &&  this.emailfield.getText().contains("@") && this.emailfield.getText().trim().length() >= 6 && o.validpassword(this.passwordfield.getText().trim())) {
                 Accounts ac = new Accounts(this.namefield.getText(), this.surnamefield.getText(), this.emailfield.getText(), (int) this.agefield.getSelectedItem(), this.passwordfield.getText());
 
                 if (o.Existed(ac, o)) {

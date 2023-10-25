@@ -268,8 +268,7 @@ public void insertion(Accounts a,String product, int quantity)
    
    }
    
-     
-      
+  
       
       SQL.updateAccount(a);
       
@@ -292,6 +291,21 @@ public boolean validpassword(String password) {
     }
 
     return numberCount >= 3 && alphabetCount >= 3;
+}
+
+
+public boolean validname(String name)
+{
+    int alphabetCount = 0;
+    int namesize = name.length();
+    
+     for (char c : name.toCharArray()) {
+       if (Character.isLetter(c)) {
+            alphabetCount++;
+        }
+    }
+
+    return alphabetCount == namesize;
 }
 
 

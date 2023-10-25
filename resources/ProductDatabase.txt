@@ -1,9 +1,0 @@
-Blue ball point pen, Warehouse Stationary, 2.0, 5.0, Stationary
-PSVR2, Sony Entertainment, 1000.0, 5.0, Gaming
-Razer RGB Keyboard, Razer.com, 50.0, 2.2, Gaming
-Fluoro Notebook, Warehouse Stationary, 1.0, 2.324323, Stationary
-Magic 8 ball, Novelty.com, 12.0, 5.0, Novelty
-Red ball point pen, Warehouse Stationary, 3.0, 5.0, Stationary
-PS5, Sony Entertainment, 1000.0, 5.0, Gaming
-Red Dead Redemption 2, Rockstar Games, 50.0, 5.0, Gaming
-T800 endoskeleton, Skynet, 100000.0, 5.0, Other
