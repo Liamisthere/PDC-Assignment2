@@ -3,10 +3,10 @@ Shopping App
 Purchased by:Liam  Naidoo
 Email Address: Liam@butter.co.nz
 
-Blue ball point pen X1 - Blue ball point pen , Warehouse Stationary, 20.0, 0.0, Stationary 
+Blue ball point pen X3 - Blue ball point pen , Warehouse Stationary, 6.0, 0.0, Stationary 
 
-Balance due: $20.0
+Balance due: $6.0
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-Date of transaction: Thu Oct 26 11:28:05 NZDT 2023
+Date of transaction: Thu Oct 26 17:23:41 NZDT 2023
 
 Created by Liam Naidoo

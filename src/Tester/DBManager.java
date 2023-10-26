@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//This class ensure that Database is established and ready for connection
 public final class DBManager {
 
     /**
@@ -26,10 +27,12 @@ public final class DBManager {
 
     Connection conn;
 
+    //Constructor of DBManager
     public DBManager() {
         establishConnection();
     }
 
+    //Return connection of Database
     public Connection getConnection() {
         return this.conn;
     }
@@ -46,6 +49,7 @@ public final class DBManager {
         }
     }
 
+    //Close connections of database
     public void closeConnections() {
         if (conn != null) {
             try {

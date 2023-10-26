@@ -17,6 +17,8 @@ class Onlineshopping {
 
     // Catches any nullpointers exceptions when program is running
     public static void onlinerunner() {
+        
+        //try starting up the database and other programs
         try {
 
             DBManager dbManager = new DBManager();
@@ -34,8 +36,9 @@ class Onlineshopping {
         } //sends a message if NullPointerException has been caught
         catch (NullPointerException ex) {
             System.out.println("ERROR: " + ex + " has been detected");
-            System.out.println("Program is already running.");
-            System.out.println("Solution: Try to shutdown the running Program in order to run");
+            System.out.println("Program is already running.\n");
+            System.out.println("Solution 1: Try to shutdown the running Program in order to run\n");
+            System.out.println("Solution 2: Stop the Java DB server in order to run");
         }
 
     }

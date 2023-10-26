@@ -18,8 +18,6 @@ public class Product {
     private String category;
     private int ProductID;
 
-
-
     //Constructor consists of name, company, price, rating and category
     Product(String name, String company, double price, double rating, String category) {
         this.name = name;
@@ -100,8 +98,7 @@ public class Product {
     public void setCategory(String category) {
         this.category = category;
     }
-    
-    
+
     public void setProductID(int ProductID) {
         this.ProductID = ProductID;
     }
@@ -109,8 +106,7 @@ public class Product {
     public int getProductID() {
         return ProductID;
     }
-    
-    
+
     // Overrides toString method to print out details about the product
     @Override
     public String toString() {

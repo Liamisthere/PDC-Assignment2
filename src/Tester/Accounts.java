@@ -130,7 +130,7 @@ public class Accounts {
 
         return this.name + ", " + this.surname + ", " + this.email + ", " + this.password + ", " + this.age + ", /" + this.getShopping_list();
     }
-    
+
     //Returns a string of the contents of the shopping list
     public String Shop_listed() {
         String list = "";

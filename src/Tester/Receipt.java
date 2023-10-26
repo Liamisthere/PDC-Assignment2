@@ -55,7 +55,6 @@ public class Receipt {
             pw.println("\nCreated by Liam Naidoo");
             pw.close();
         } //catches FileNotFoundException error and sents a message about it insted
-        
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
