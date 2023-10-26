@@ -161,7 +161,6 @@ public class Productstore {
             //If enlisted doesn't equals to 1, then add name with "X1" to shopping list and print out item_name
             if (enlisted != 1) {
                 item_name = o.getName() + "X1";
-                System.out.println(item_name);
                 a.getShopping_list().add(item_name);
             } //If exist equals to true and counters equals to 1 then remove old value from shopping list and add new value  
             else if (exist == true && counters == 1) {

@@ -1,1 +1,13 @@
-Thu Oct 26 21:16:08 NZDT 2023 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Fri Oct 27 06:23:37 NZDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018b-6d03-577f-000005709968 
+on database directory C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1\ShopDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4f4a7090 
+Loaded from file:/C:/Users/liana/OneDrive/Documents/NetBeansProjects/ShoppApp/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.18+9-LTS-195
+user.dir=C:\Users\liana\OneDrive\Documents\NetBeansProjects\ShoppApp_1
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

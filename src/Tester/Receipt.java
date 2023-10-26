@@ -35,7 +35,7 @@ public class Receipt {
             // Prints out data in Printed_receipt.txt
             PrintWriter pw = new PrintWriter(new FileOutputStream("./resources/Printed_receipt.txt"));
 
-            pw.println("Shopping App");
+            pw.println("Shopping App 2");
             pw.println(line);
 
             pw.println("Purchased by:" + a.getName() + " " + a.getSurname());

@@ -38,7 +38,6 @@ public class User_page extends JFrame implements ActionListener {
 
     public JPanel paypanel;
     public JPanel itemlistpanel;
-    public JPanel insertitempanel;
     public JPanel searchlistpanel;
     public JPanel viewcartpanel;
     public JPanel removeitempanel;
@@ -181,8 +180,7 @@ public class User_page extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setTitle("User page - " + a.getName() + " " + a.getSurname());
 
-        paytext = new JLabel("That'll be $" + pgs.totalPrice(a, pgs) + ",  Are you ready to pay?");
-        paytext.setSize(2, 2);
+        paytext = new JLabel("That'll be a total of $" + pgs.totalPrice(a, pgs) + ",  Are you ready to pay now?");
         paytext.setVisible(false);
 
         payquestion = new JLabel("");
@@ -223,19 +221,13 @@ public class User_page extends JFrame implements ActionListener {
         itemlistBtn.setVisible(true);
         itemlistpanel.add(itemlistBtn);
 
-        JPanel insertpanel = new JPanel();
-        insertitemBtn.setVisible(true);
-        insertpanel.add(insertitemBtn);
-
-        insertitempanel = new JPanel();
-        itemlistBtn.setVisible(true);
-        insertitempanel.add(itemlistBtn);
-
-        System.out.println(pgs.getInventory());
-
         viewcartpanel = new JPanel();
         viewcartBtn.setVisible(true);
         viewcartpanel.add(viewcartBtn);
+
+        insertpanel = new JPanel();
+        insertitemBtn.setVisible(true);
+        insertpanel.add(insertitemBtn);
 
         ratepanel = new JPanel();
         rateBtn.setVisible(true);
@@ -303,10 +295,8 @@ public class User_page extends JFrame implements ActionListener {
         paybuttonpanel.add(cancelpay);
 
         centerPanel.add(itemlistpanel);
-        centerPanel.add(insertpanel);
-
-        centerPanel.add(insertitempanel);
         centerPanel.add(viewcartpanel);
+        centerPanel.add(insertpanel);
         centerPanel.add(ratepanel);
         centerPanel.add(searchlistpanel);
         centerPanel.add(removeitempanel);
@@ -535,7 +525,6 @@ public class User_page extends JFrame implements ActionListener {
         item_list.setEnabled(false);
 
         itemtablepanel.add(scroll);
-        System.out.println("Here");
 
     }
 
@@ -555,8 +544,6 @@ public class User_page extends JFrame implements ActionListener {
         ArrayList<Double> prices = new ArrayList<Double>();
         ArrayList<Integer> quantity = new ArrayList<Integer>();
 
-        System.out.println(a.getShopping_list());
-
         for (Product p : list) {
             for (String name : user_items) {
 
@@ -573,11 +560,6 @@ public class User_page extends JFrame implements ActionListener {
                 }
             }
         }
-
-        System.out.println("Price list: " + prices.size());
-        System.out.println("user list: " + user_items.size());
-        System.out.println("inventory list: " + list.size());
-        System.out.println("quantity list: " + quantity.size());
 
         Object rowData[] = new Object[5];
         for (int i = 0; i < user_items.size(); i++) {
@@ -731,7 +713,6 @@ public class User_page extends JFrame implements ActionListener {
 
             update_item_table();
 
-            System.out.println(pgs.getInventory());
             cancelBtn.setText("Done");
 
         }
@@ -783,13 +764,12 @@ public class User_page extends JFrame implements ActionListener {
         //If entersearchBtn has been clicked and searchfield isn't empty, run the following commands 
         if (e.getSource() == entersearchBtn && searchfield.getText().trim().length() > 0) {
             ArrayList<Product> searched = pgs.findProduct(searchfield.getText(), pgs.getInventory());
-
+            cancelBtn.setText("Done");
             if (searched == null) {
                 System.out.println("Nothing");
                 searchwarn.setText("Sorry but '" + searchfield.getText() + "' doesn't match the items");
                 searchwarn.setVisible(true);
             } else {
-                System.out.println(searched);
                 searchwarn.setVisible(false);
                 update_searchtable(searched);
                 search_scroll.setVisible(true);
@@ -929,8 +909,8 @@ public class User_page extends JFrame implements ActionListener {
 
         //If payBtn has been clicked, run the following commands       
         if (e.getSource() == this.payBtn) {
-            messagetext.setText("Click yes to pay the items that are currently in your cart.");
-            paytext = new JLabel("That'll be $" + pgs.totalPrice(a, pgs) + ",  Are you ready to pay?");
+            messagetext.setText("Click pay button to pay the items that are currently in your cart");
+            paytext.setText("That'll be a total of $" + pgs.totalPrice(a, pgs) + ",  Are you ready to pay now?");
             System.out.println("Paying items");
             cancelpay.setText("Don't pay");
             updateUsertable();
@@ -1052,10 +1032,6 @@ public class User_page extends JFrame implements ActionListener {
         if (e.getSource() == this.insertitemBtn) {
             messagetext.setText("Select item and quantity and click enter to confirm selection");
 
-            System.out.println("Insert item to cart");
-
-            System.out.println(a.Shop_listed());
-
             insertitemBtn.setEnabled(false);
             itemlistBtn.setEnabled(false);
             searchlistBtn.setEnabled(false);
@@ -1084,10 +1060,7 @@ public class User_page extends JFrame implements ActionListener {
 
             actionmessage.setText(quantity + " items has been added to cart");
 
-            System.out.println(a.Shop_listed());
-
             astore.insertion(a, product_name, quantity);
-            System.out.println(a.Shop_listed());
 
             updateUsertable();
             user_scroll.setVisible(false);
