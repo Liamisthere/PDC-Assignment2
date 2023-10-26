@@ -211,6 +211,7 @@ public class Enrol extends JFrame implements ActionListener {
         //If submitBtn is clicked and namefield is empty, warn user
         if (e.getSource() == this.submitBtn && this.namefield.getText().trim().isEmpty()) {
             namewarn.setVisible(true);
+            namelimit.setVisible(false);
         } //If submitBtn is clicked and namefield contains numbers, warn user
         else if (e.getSource() == this.submitBtn && this.namefield.getText().trim().length() > 0 && o.validname(namefield.getText()) == false) {
             namewarn.setVisible(false);
@@ -224,6 +225,7 @@ public class Enrol extends JFrame implements ActionListener {
         //If submitBtn is clicked and surnamefield is empty, warn user
         if (e.getSource() == this.submitBtn && this.surnamefield.getText().trim().isEmpty()) {
             surnamewarn.setVisible(true);
+            surnamelimit.setVisible(false);
         } //If submitBtn is clicked and surnamefield contains numbers, warn user
         else if (e.getSource() == this.submitBtn && this.surnamefield.getText().trim().length() > 0 && o.validname(surnamefield.getText()) == false) {
             surnamewarn.setVisible(false);
