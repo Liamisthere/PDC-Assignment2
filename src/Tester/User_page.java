@@ -975,6 +975,8 @@ public class User_page extends JFrame implements ActionListener {
 
             cartsize.setText("You currently have " + astore.number_cart(a) + " item in your cart");
             cartsize.setVisible(true);
+            
+            emptylist.setVisible(true);
 
         }
 

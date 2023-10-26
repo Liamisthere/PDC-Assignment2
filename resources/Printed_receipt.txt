@@ -1,14 +1,12 @@
-Shopping App
+Shopping App 2
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-Purchased by:Liam Naidoo
-Email Address: Liam@butter.co.nz
+Purchased by:John  Doe
+Email Address: John@Downers.co
 
-Razer RGB Keyboard X1 - Razer RGB Keyboard , Razer.com, 50.0, 2.2, Gaming 
+Blue ball point pen X1 - Blue ball point pen , Warehouse Stationary, 2.0, 5.0, Stationary 
 
-PS5 X1 - PS5 , Sony Entertainment, 1000.0, 5.0, Gaming 
-
-Balance due: $1050.0
+Balance due: $2.0
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-Date of transaction: Thu Oct 26 22:09:16 NZDT 2023
+Date of transaction: Fri Oct 27 07:07:15 NZDT 2023
 
 Created by Liam Naidoo

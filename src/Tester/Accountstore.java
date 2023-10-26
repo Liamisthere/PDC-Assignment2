@@ -4,7 +4,6 @@
  */
 package Tester;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.sql.Connection;
