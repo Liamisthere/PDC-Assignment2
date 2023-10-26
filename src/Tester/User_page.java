@@ -946,6 +946,8 @@ public class User_page extends JFrame implements ActionListener {
             pay.payment();
             updateUsertable();
             cancelpay.setText("Exit payment");
+            
+            paytext.setVisible(false);
 
         }
 
