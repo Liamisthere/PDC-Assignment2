@@ -296,8 +296,6 @@ public class Enrol extends JFrame implements ActionListener {
                     emailguide.setVisible(false);
                     passwordguide.setVisible(false);
 
-                    System.out.println(ac);
-
                     DB.addAccountDB(ac);
                     o.addUsers(ac);
 
