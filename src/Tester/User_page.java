@@ -185,7 +185,7 @@ public class User_page extends JFrame implements ActionListener {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setTitle("User page");
+        this.setTitle("User page - "+a.getName()+" "+a.getSurname());
                 
         paytext = new JLabel("That'll be $"+pgs.totalPrice(a, pgs)+",  Are you ready to pay?");
         paytext.setSize(2, 2);

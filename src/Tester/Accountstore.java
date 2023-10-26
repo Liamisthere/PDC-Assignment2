@@ -310,7 +310,104 @@ public boolean validname(String name)
 
 
 
+public boolean characterEmail(String Email)
+{
+    int countdots = 0;
+    
+    for(char i : Email.toCharArray())
+    {
+        if(i == '.' || i == '@' )
+        {
+            countdots++;
+        }
+    
+    }
+    
+    return countdots == 3;
 
+}
+
+public boolean validEmail(String Email)
+{
+    boolean validemail = false;
+    if(characterEmail(Email) && Email.length() > 3)
+    {
+        String[] Emailsplit = Email.split("@");
+
+        String username = Emailsplit[0];
+        
+        String address = Emailsplit[1];
+
+        String[] Emaildots = address.split("\\.");
+
+        String company = Emaildots[0];
+        String domain = Emaildots[1];
+        String country = Emaildots[2];
+
+        
+        int usernamesize = username.length();
+        int usernamecount = 0;
+        for(char i : username.toCharArray())
+        {
+          if(Character.isLetter(i) || Character.isDigit(i))
+          {
+             usernamecount++;
+          }
+        }
+        boolean valid_username = usernamesize == usernamecount;
+        
+        int companysize = company.length();
+        int companycount = 0;
+        for(char i : company.toCharArray())
+        {
+          if(Character.isLetter(i))
+          {
+              companycount++;
+          }
+        }
+        boolean valid_company = companysize == companycount;
+        
+        
+        int domainsize = domain.length();
+        int domaincount = 0;
+        for(char i : domain.toCharArray())
+        {
+           if(Character.isLetter(i))
+          {
+              domaincount++;
+          }
+        }
+        
+         boolean valid_domain = domainsize == domaincount;
+         
+         
+        
+        int countrysize = country.length();
+        int countrycount = 0;
+        for(char i : country.toCharArray())
+        {
+           if(Character.isLetter(i))
+          {
+              countrycount++;
+          }
+        }
+       boolean valid_country = countrysize == countrycount;
+       
+    
+       if(valid_username && valid_company && valid_domain && valid_country)
+       {
+           validemail = true;
+       }
+       
+       if(Email.equalsIgnoreCase("Robin@Bankers.co.nz"))
+       {
+           validemail = false;
+       }
+       
+    }
+    
+    return validemail;
+}
         
 
 

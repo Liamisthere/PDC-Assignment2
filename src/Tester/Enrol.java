@@ -33,6 +33,7 @@ public class Enrol extends JFrame implements ActionListener {
     public JLabel agewarn;
     public JLabel emailwarn;
     public JLabel emailexist;
+    public JLabel emailcopy;
     
     public JLabel surnamelimit;
     public JLabel namelimit;
@@ -99,11 +100,16 @@ public class Enrol extends JFrame implements ActionListener {
         
         JPanel Passwordpanel = new JPanel();    
         JPanel Emailpanel = new JPanel();
-               
+        
+        JPanel Emailstrucpanel = new JPanel();
+        JPanel Passwordstrucpanel = new JPanel();
+        
         centerPanel.add(Namepanel);
         centerPanel.add(Surnamepanel);
         centerPanel.add(Agepanel);
+        centerPanel.add(Emailstrucpanel);
         centerPanel.add(Emailpanel);
+        centerPanel.add(Passwordstrucpanel);
         centerPanel.add(Passwordpanel);
         
         
@@ -115,9 +121,10 @@ public class Enrol extends JFrame implements ActionListener {
         
         Namepanel.add(name);
         
-        Namepanel.add(namelimit);
+  
         Namepanel.add(namefield);
         Namepanel.add(namewarn);
+        Namepanel.add(namelimit);
         
         JLabel surname = new JLabel("\nSurame:");
 
@@ -129,9 +136,11 @@ public class Enrol extends JFrame implements ActionListener {
         surnamelimit.setVisible(false);
         
         Surnamepanel.add(surname);
+
+        Surnamepanel.add(surnamefield);
         Surnamepanel.add(surnamewarn);
         Surnamepanel.add(surnamelimit);
-        Surnamepanel.add(surnamefield);
+        
 
         JLabel age = new JLabel("Age:");
         age.setVisible(true);
@@ -141,22 +150,29 @@ public class Enrol extends JFrame implements ActionListener {
         Agepanel.add(agefield);
 
         
+        
         JLabel email = new JLabel("Email:");
         emailwarn = new JLabel("Email field is empty!");
-        emailguide = new JLabel("Email must contain @ and be at least 6 characters long");
+        emailguide = new JLabel("Email must follow this structure: Robin@bankers.co.nz");
         emailexist = new JLabel("This email is already in use in the program, use another email");
+        emailcopy = new JLabel("Don't copy the example!");
+        
 
         email.setVisible(true);
         emailexist.setVisible(false);
         emailwarn.setVisible(false);
         emailguide.setVisible(false);
-
+        emailcopy.setVisible(false);
+        
         Emailpanel.add(email);
         Emailpanel.add(emailfield);
         Emailpanel.add(emailexist);
         Emailpanel.add(emailguide);
         Emailpanel.add(emailwarn);
-        
+        Emailpanel.add(emailcopy);
+
+        Emailstrucpanel.add(emailguide);
+
 
         JLabel password = new JLabel("Password:");
         passwordwarn = new JLabel("Password field is empty!");
@@ -168,10 +184,11 @@ public class Enrol extends JFrame implements ActionListener {
         passwordwarn.setVisible(false);
 
         Passwordpanel.add(password);
-        Passwordpanel.add(passwordwarn);
-        Passwordpanel.add(passwordguide);
         Passwordpanel.add(passwordfield);
+        Passwordpanel.add(passwordwarn);
 
+        Passwordstrucpanel.add(passwordguide);
+        
         this.add(centerPanel, BorderLayout.CENTER);
 
         //South panel
@@ -239,10 +256,31 @@ public class Enrol extends JFrame implements ActionListener {
         if (e.getSource() == this.submitBtn && this.emailfield.getText().trim().isEmpty()) {
             System.out.println("Email empty");
             emailwarn.setVisible(true);
+            emailcopy.setVisible(false);
+            emailguide.setVisible(false);
         }
+        
        else if (e.getSource() == this.submitBtn && this.emailfield.getText().trim().length() > 0) {
-            emailwarn.setVisible(false);
+           emailwarn.setVisible(false);
+           if(this.emailfield.getText().trim().equalsIgnoreCase("Robin@Bankers.co.nz"))
+           {
+               emailcopy.setVisible(true);
+               emailguide.setVisible(false);
+           }
+           
+           else if(o.validEmail(emailfield.getText()) == false)
+           {
+               emailguide.setVisible(true);
+               emailcopy.setVisible(false);
+           }
+           
+           else    
+           {
+            emailcopy.setVisible(false);
+            emailguide.setVisible(false);
+           }
         }        
+        
         
 
         if (e.getSource() == this.submitBtn && this.passwordfield.getText().trim().isEmpty()) {
@@ -252,7 +290,18 @@ public class Enrol extends JFrame implements ActionListener {
         
         else if (e.getSource() == this.submitBtn && this.passwordfield.getText().trim().length() > 0) {
             passwordwarn.setVisible(false);
+            if(o.validpassword(this.passwordfield.getText()) == false)
+            {
+                passwordguide.setVisible(true);
+            }
+            else
+            {
+                passwordguide.setVisible(false);
+            }
+            
         }
+        
+        
 
         if (e.getSource() == this.submitBtn && this.namefield.getText().trim().length() > 0 && this.surnamefield.getText().trim().length() > 0 && this.emailfield.getText().trim().length() > 0 && this.passwordfield.getText().trim().length() > 0) {
             System.out.println("SUBMIT");
@@ -263,7 +312,7 @@ public class Enrol extends JFrame implements ActionListener {
                passwordwarn.setVisible(false);
                
                
-            if(o.validname(this.namefield.getText().trim()) &&  o.validname(this.surnamefield.getText().trim()) &&  this.emailfield.getText().contains("@") && this.emailfield.getText().trim().length() >= 6 && o.validpassword(this.passwordfield.getText().trim())) {
+            if(o.validname(this.namefield.getText().trim()) &&  o.validname(this.surnamefield.getText().trim()) &&  o.validEmail(this.emailfield.getText().trim()) && o.validpassword(this.passwordfield.getText().trim())) {
                 Accounts ac = new Accounts(this.namefield.getText(), this.surnamefield.getText(), this.emailfield.getText(), (int) this.agefield.getSelectedItem(), this.passwordfield.getText());
 
                 if (o.Existed(ac, o)) {
@@ -285,19 +334,6 @@ public class Enrol extends JFrame implements ActionListener {
                     cf.setVisible(true);
                     
                 }
-            }  if (this.emailfield.getText().contains("@") && this.emailfield.getText().length() >= 6) {
-                emailguide.setVisible(false);
-            }  if (o.validpassword(this.passwordfield.getText())) {
-                passwordguide.setVisible(false);
-            }  if (!this.emailfield.getText().contains("@") || this.emailfield.getText().length() < 6) {
-
-                emailguide.setVisible(true);
-                System.out.println("EMAIL LIMIT");
-
-            }  if (o.validpassword(this.passwordfield.getText()) == false) {
-                System.out.println("PASSWORD LIMIT");
-                System.out.println(o.validpassword(this.passwordfield.getText()));
-                passwordguide.setVisible(true);
             }
 
         }
