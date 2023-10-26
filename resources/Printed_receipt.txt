@@ -1,12 +1,12 @@
 Shopping App 2
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-Purchased by:John  Doe
-Email Address: John@Downers.co
+Purchased by:Liam Naidoo
+Email Address: Liam@butter.co.nz
 
-Blue ball point pen X1 - Blue ball point pen , Warehouse Stationary, 2.0, 5.0, Stationary 
+Blue ball point pen X2 - Blue ball point pen , Warehouse Stationary, 4.0, 3.25, Stationary 
 
-Balance due: $2.0
+Balance due: $4.0
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-Date of transaction: Fri Oct 27 07:07:15 NZDT 2023
+Date of transaction: Fri Oct 27 07:26:45 NZDT 2023
 
 Created by Liam Naidoo

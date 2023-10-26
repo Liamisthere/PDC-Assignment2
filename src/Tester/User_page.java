@@ -1114,7 +1114,6 @@ public class User_page extends JFrame implements ActionListener {
             usershoplist.setEnabled(false);
             removeBtn.setEnabled(false);
             removefield.setEnabled(false);
-            cancelBtn.setText("Cancel");
 
         }
 
